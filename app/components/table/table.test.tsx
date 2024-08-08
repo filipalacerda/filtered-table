@@ -3,6 +3,7 @@ import "@testing-library/jest-dom";
 import Table from "./index";
 
 import datastore from "../../data/data";
+import { Property } from "@/app/types/types";
 
 describe(Table.name, () => {
   const headers = datastore.getProperties();
@@ -11,7 +12,9 @@ describe(Table.name, () => {
   let container: HTMLElement;
 
   beforeEach(() => {
-    container = render(<Table headers={headers} rows={rows} />).container;
+    container = render(
+      <Table headers={headers as Property[]} rows={rows} />
+    ).container;
   });
 
   describe("when component renders", () => {

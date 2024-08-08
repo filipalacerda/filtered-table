@@ -13,15 +13,17 @@ export type Operator = {
 
 export type Products = Product[];
 
+export type PropertyType = "string" | "number" | "enumerated" | undefined;
+
 export type Property = {
   id: number;
   name: string;
-  type: string;
+  type: PropertyType;
   values?: string[];
 };
 
 export type Filters = {
-  operator: Operator;
-  property: Property;
-  value: string;
+  operator?: Operator;
+  property?: Property;
+  value?: string;
 };
