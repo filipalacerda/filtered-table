@@ -124,6 +124,7 @@ const Search = ({ categories, operators, onClear, onSubmit }: SearchProps) => {
             Category:
           </label>
           <select
+            data-testid="category-select"
             name="category"
             id="category"
             onChange={handleCategoryChange}
@@ -142,6 +143,7 @@ const Search = ({ categories, operators, onClear, onSubmit }: SearchProps) => {
           <fieldset className="flex gap-2 items-center">
             <label htmlFor="operator">Operator:</label>
             <select
+              data-testid="operator-select"
               name="operator"
               id="operator"
               onChange={handleOperatorChange}
@@ -161,6 +163,8 @@ const Search = ({ categories, operators, onClear, onSubmit }: SearchProps) => {
           <fieldset className="flex gap-2 items-center">
             <label htmlFor="value">Value:</label>
             <DynamicInput
+              data-testid="value-input"
+              value={value}
               type={currentCategoryProperty.type}
               values={currentCategoryProperty.values}
               handleChange={handleValueChange}
