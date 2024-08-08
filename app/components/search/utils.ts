@@ -1,4 +1,4 @@
-import { Operator } from "@/app/types/types";
+import { Operator, PropertyType } from "@/app/types/types";
 
 const categoryOperatorsMap = {
   string: ["equals", "any", "none", "in", "contains"],
@@ -17,7 +17,7 @@ const categoryOperatorsMap = {
  */
 const filterOperators = (
   operators: Operator[],
-  currentCategoryProperty?: "number" | "string" | "enumerated"
+  currentCategoryProperty?: PropertyType
 ) => {
   let result: [] | Operator[];
   const availableOperators =

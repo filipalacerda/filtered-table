@@ -28,7 +28,7 @@ const Home = () => {
   useEffect(() => {
     setProducts(datastore.getProducts());
     setOperators(datastore.getOperators());
-    setProperties(datastore.getProperties());
+    setProperties(datastore.getProperties() as Property[]);
   }, [setProducts, setOperators, setProperties]);
 
   const visibleProducts = useMemo(
