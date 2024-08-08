@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import datastore from "./data/data";
+import Table from "./components/table";
 
 import type { Products, Operator, Property, Filters } from "./types/types";
 
@@ -35,7 +36,12 @@ const Home = () => {
   );
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24"></main>
+    <main className="flex min-h-screen flex-col gap-10 w-full p-24">
+      <div></div>
+      <section className="w-full">
+        <Table headers={properties} rows={visibleProducts} />
+      </section>
+    </main>
   );
 };
 
