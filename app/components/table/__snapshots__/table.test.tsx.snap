@@ -1,0 +1,207 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Table when component renders should match snapshot 1`] = `
+<div>
+  <table
+    class="min-w-full text-left text-sm font-light text-surface"
+  >
+    <thead
+      class="border-b border-neutral-200 font-medium"
+    >
+      <tr>
+        <th
+          class="px-6 py-4"
+          scope="col"
+        >
+          Product Name
+        </th>
+        <th
+          class="px-6 py-4"
+          scope="col"
+        >
+          color
+        </th>
+        <th
+          class="px-6 py-4"
+          scope="col"
+        >
+          weight (oz)
+        </th>
+        <th
+          class="px-6 py-4"
+          scope="col"
+        >
+          category
+        </th>
+        <th
+          class="px-6 py-4"
+          scope="col"
+        >
+          wireless
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        class="border-b border-neutral-200"
+      >
+        <td
+          class="whitespace-nowrap px-6 py-4"
+        >
+          Headphones
+        </td>
+        <td
+          class="whitespace-nowrap px-6 py-4"
+        >
+          black
+        </td>
+        <td
+          class="whitespace-nowrap px-6 py-4"
+        >
+          5
+        </td>
+        <td
+          class="whitespace-nowrap px-6 py-4"
+        >
+          electronics
+        </td>
+        <td
+          class="whitespace-nowrap px-6 py-4"
+        >
+          false
+        </td>
+      </tr>
+      <tr
+        class="border-b border-neutral-200"
+      >
+        <td
+          class="whitespace-nowrap px-6 py-4"
+        >
+          Cell Phone
+        </td>
+        <td
+          class="whitespace-nowrap px-6 py-4"
+        >
+          black
+        </td>
+        <td
+          class="whitespace-nowrap px-6 py-4"
+        >
+          3
+        </td>
+        <td
+          class="whitespace-nowrap px-6 py-4"
+        >
+          electronics
+        </td>
+        <td
+          class="whitespace-nowrap px-6 py-4"
+        >
+          true
+        </td>
+      </tr>
+      <tr
+        class="border-b border-neutral-200"
+      >
+        <td
+          class="whitespace-nowrap px-6 py-4"
+        >
+          Keyboard
+        </td>
+        <td
+          class="whitespace-nowrap px-6 py-4"
+        >
+          grey
+        </td>
+        <td
+          class="whitespace-nowrap px-6 py-4"
+        >
+          5
+        </td>
+        <td
+          class="whitespace-nowrap px-6 py-4"
+        >
+          electronics
+        </td>
+        <td
+          class="whitespace-nowrap px-6 py-4"
+        >
+          false
+        </td>
+      </tr>
+      <tr
+        class="border-b border-neutral-200"
+      >
+        <td
+          class="whitespace-nowrap px-6 py-4"
+        >
+          Cup
+        </td>
+        <td
+          class="whitespace-nowrap px-6 py-4"
+        >
+          white
+        </td>
+        <td
+          class="whitespace-nowrap px-6 py-4"
+        >
+          3
+        </td>
+        <td
+          class="whitespace-nowrap px-6 py-4"
+        >
+          kitchenware
+        </td>
+      </tr>
+      <tr
+        class="border-b border-neutral-200"
+      >
+        <td
+          class="whitespace-nowrap px-6 py-4"
+        >
+          Key
+        </td>
+        <td
+          class="whitespace-nowrap px-6 py-4"
+        >
+          silver
+        </td>
+        <td
+          class="whitespace-nowrap px-6 py-4"
+        >
+          1
+        </td>
+        <td
+          class="whitespace-nowrap px-6 py-4"
+        >
+          tools
+        </td>
+      </tr>
+      <tr
+        class="border-b border-neutral-200"
+      >
+        <td
+          class="whitespace-nowrap px-6 py-4"
+        >
+          Hammer
+        </td>
+        <td
+          class="whitespace-nowrap px-6 py-4"
+        >
+          brown
+        </td>
+        <td
+          class="whitespace-nowrap px-6 py-4"
+        >
+          19
+        </td>
+        <td
+          class="whitespace-nowrap px-6 py-4"
+        >
+          tools
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
