@@ -23,7 +23,7 @@ export type Property = {
 };
 
 export type Filters = {
-  operator: Operator;
-  property: Property;
-  value: string;
+  operator?: Operator;
+  property?: Property;
+  value?: string;
 };

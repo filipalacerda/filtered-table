@@ -4,6 +4,7 @@ import { ChangeEvent, FormEvent, useMemo, useState } from "react";
 import type { Operator, Property, Filters } from "../../types/types";
 
 import DynamicInput from "./dynamicInput";
+import ActionButtons from "./actionButtons";
 import { filterOperators } from "./utils";
 
 type SearchProps = {
@@ -28,8 +29,20 @@ const Search = ({ categories, operators, onClear, onSubmit }: SearchProps) => {
     useState<Property>();
   const [value, setValue] = useState<string>("");
 
+  /**
+   * When the user clicks search we need to call the onSubmit callback
+   * with the form values
+   *
+   * @param e: FormEvent
+   */
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+
+    onSubmit({
+      property: currentCategoryProperty,
+      operator: currentOperator,
+      value,
+    });
   };
 
   /**
@@ -155,21 +168,7 @@ const Search = ({ categories, operators, onClear, onSubmit }: SearchProps) => {
           </fieldset>
         )}
       </div>
-      <div className="flex gap-10">
-        <button
-          type="submit"
-          className="bg-green-500 hover:bg-green-700 text-white  py-2 px-4 rounded"
-        >
-          Search
-        </button>
-        <button
-          type="button"
-          onClick={handleOnClear}
-          className="bg-blue-500 hover:bg-blue-700 text-white  py-2 px-4 rounded"
-        >
-          Clear
-        </button>
-      </div>
+      <ActionButtons handleOnClear={handleOnClear} />
     </form>
   );
 };
