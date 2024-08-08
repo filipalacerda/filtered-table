@@ -47,7 +47,7 @@ const Search = ({ categories, operators, onClear, onSubmit }: SearchProps) => {
    *
    * We'll also need the category to show the possible operators
    *
-   * We need to reset the operators selected option everytime the user changes the category,
+   * We need to reset the operators and the value everytime the user changes the category,
    * because the values are different.
    *
    * @param e: ChangeEvent
@@ -61,6 +61,7 @@ const Search = ({ categories, operators, onClear, onSubmit }: SearchProps) => {
 
     setCurrentCategoryProperty(categorySelected);
     setCurrentOperator({ id: "empty", text: "" });
+    setValue("");
   };
 
   /**
@@ -87,7 +88,17 @@ const Search = ({ categories, operators, onClear, onSubmit }: SearchProps) => {
     setValue(value);
   };
 
-  const handleOnClear = () => {};
+  /**
+   * Resets the form state
+   * Calls onClear callback
+   */
+  const handleOnClear = () => {
+    setCurrentCategoryProperty({ id: -1, name: "", type: undefined });
+    setCurrentOperator({ id: "empty", text: "" });
+    setValue("");
+
+    onClear();
+  };
 
   return (
     <form

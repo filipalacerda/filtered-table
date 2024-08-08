@@ -1,11 +1,24 @@
 import { ChangeEvent } from "react";
 
+import type { PropertyType } from "@/app/types/types";
+
 type DynamicInputProps = {
-  type: "string" | "number" | "enumerated";
+  type: PropertyType;
   values?: string[];
   handleChange: (value: string) => void;
 };
 
+/**
+ * We need to render a different input type depending on the property type.
+ * If the type is a string, it returns a text input
+ * If the type is a number, it returns a number input
+ * If the type is enumerated, it returns a select input
+ *
+ * If the type does not match any of the above, this component will return null
+ *
+ * @param param0
+ * @returns React.Element | null
+ */
 const DynamicInput = ({ type, values, handleChange }: DynamicInputProps) => {
   const onChange = (
     e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>
