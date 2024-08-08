@@ -4,7 +4,6 @@ import { ChangeEvent, FormEvent, useMemo, useState } from "react";
 import type { Operator, Property, Filters } from "../../types/types";
 
 import DynamicInput from "./dynamicInput";
-import ActionButtons from "./actionButtons";
 import { filterOperators } from "./utils";
 
 type SearchProps = {
@@ -185,7 +184,21 @@ const Search = ({ categories, operators, onClear, onSubmit }: SearchProps) => {
             </fieldset>
           )}
         </div>
-        <ActionButtons handleOnClear={handleOnClear} />
+        <div className="flex gap-10">
+          <button
+            type="submit"
+            className="bg-green-700 hover:bg-green-900 text-white text-sm py-2 px-4 rounded"
+          >
+            Search
+          </button>
+          <button
+            type="button"
+            onClick={handleOnClear}
+            className="bg-blue-700 hover:bg-blue-900 text-white text-sm py-2 px-4 rounded"
+          >
+            Clear
+          </button>
+        </div>
       </div>
       {!isValid && (
         <p className="text-sm text-red-800" data-testid="error-message">
