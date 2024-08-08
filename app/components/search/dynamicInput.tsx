@@ -1,7 +1,7 @@
 import { ChangeEvent } from "react";
 
 type DynamicInputProps = {
-  type: string;
+  type: "string" | "number" | "enumerated";
   values?: string[];
   handleChange: (value: string) => void;
 };

@@ -4,20 +4,13 @@ import { ChangeEvent, FormEvent, useMemo, useState } from "react";
 import type { Operator, Property, Filters } from "../../types/types";
 
 import DynamicInput from "./dynamicInput";
+import { filterOperators } from "./utils";
 
 type SearchProps = {
   categories: Property[];
   operators: Operator[];
   onSubmit: ({ property, operator, value }: Filters) => void;
   onClear: () => void;
-};
-
-// TODO filter operators
-const filterOperators = (
-  operators: Operator[],
-  categorySelected?: Property
-) => {
-  return operators;
 };
 
 /**
@@ -44,14 +37,19 @@ const Search = ({ categories, operators, onClear, onSubmit }: SearchProps) => {
    * We need to filter the operators depending on the category type
    */
   const visibleOperators = useMemo(
-    () => filterOperators(operators, currentCategoryProperty),
+    () => filterOperators(operators, currentCategoryProperty?.type),
     [operators, currentCategoryProperty]
   );
 
   /**
    * When the user selects a category, we need to update the state.
    * We search for the correspondent id, since we'll need the full object for the onSubmit callback
+   *
    * We'll also need the category to show the possible operators
+   *
+   * We need to reset the operators selected option everytime the user changes the category,
+   * because the values are different.
+   *
    * @param e: ChangeEvent
    */
   const handleCategoryChange = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -62,6 +60,7 @@ const Search = ({ categories, operators, onClear, onSubmit }: SearchProps) => {
     })[0];
 
     setCurrentCategoryProperty(categorySelected);
+    setCurrentOperator({ id: "empty", text: "" });
   };
 
   /**
@@ -115,23 +114,25 @@ const Search = ({ categories, operators, onClear, onSubmit }: SearchProps) => {
             ))}
           </select>
         </fieldset>
-        <fieldset className="flex gap-2 items-center">
-          <label htmlFor="operator">Operator:</label>
-          <select
-            name="operator"
-            id="operator"
-            onChange={handleOperatorChange}
-            className="border p-2 border-gray-400 rounded-sm text-sm focus:border-blue-500 focus:ring-blue-500"
-            value={currentOperator?.id}
-          >
-            <option value="empty">Choose Operator</option>
-            {visibleOperators.map((operator) => (
-              <option key={operator.id} value={operator.id}>
-                {operator.text}
-              </option>
-            ))}
-          </select>
-        </fieldset>
+        {visibleOperators.length > 0 && (
+          <fieldset className="flex gap-2 items-center">
+            <label htmlFor="operator">Operator:</label>
+            <select
+              name="operator"
+              id="operator"
+              onChange={handleOperatorChange}
+              className="border p-2 border-gray-400 rounded-sm text-sm focus:border-blue-500 focus:ring-blue-500"
+              value={currentOperator?.id}
+            >
+              <option value="empty">Choose Operator</option>
+              {visibleOperators.map((operator) => (
+                <option key={operator.id} value={operator.id}>
+                  {operator.text}
+                </option>
+              ))}
+            </select>
+          </fieldset>
+        )}
         {currentCategoryProperty && currentCategoryProperty.id !== -1 && (
           <fieldset className="flex gap-2 items-center">
             <label htmlFor="value">Value:</label>

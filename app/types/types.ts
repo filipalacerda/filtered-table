@@ -16,7 +16,7 @@ export type Products = Product[];
 export type Property = {
   id: number;
   name: string;
-  type: string;
+  type: "string" | "number" | "enumerated";
   values?: string[];
 };
 
