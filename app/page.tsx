@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import datastore from "./data/data";
 import Table from "./components/table";
+import Search from "./components/search";
 
 import type { Products, Operator, Property, Filters } from "./types/types";
 
@@ -35,9 +36,18 @@ const Home = () => {
     [products, filters]
   );
 
+  const handleOnSearch = () => {};
+
   return (
     <main className="flex min-h-screen flex-col gap-10 w-full p-24">
-      <div></div>
+      <section className="flex flex-row justify-between">
+        <Search
+          categories={properties}
+          operators={operators}
+          onSubmit={handleOnSearch}
+          onClear={() => {}}
+        />
+      </section>
       <section className="w-full">
         <Table headers={properties} rows={visibleProducts} />
       </section>
