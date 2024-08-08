@@ -143,7 +143,11 @@ const Search = ({ categories, operators, onClear, onSubmit }: SearchProps) => {
             >
               <option value="-1">Choose Category</option>
               {categories.map((category) => (
-                <option key={category.id} value={category.id}>
+                <option
+                  key={category.id}
+                  value={category.id}
+                  className="bg-white"
+                >
                   {category.name}
                 </option>
               ))}
@@ -151,7 +155,9 @@ const Search = ({ categories, operators, onClear, onSubmit }: SearchProps) => {
           </fieldset>
           {visibleOperators.length > 0 && (
             <fieldset className="flex gap-2 items-center">
-              <label htmlFor="operator">Operator:</label>
+              <label htmlFor="operator" className="font-light">
+                Operator:
+              </label>
               <select
                 aria-required
                 required
@@ -173,7 +179,9 @@ const Search = ({ categories, operators, onClear, onSubmit }: SearchProps) => {
           )}
           {currentCategoryProperty && currentCategoryProperty.id !== -1 && (
             <fieldset className="flex gap-2 items-center">
-              <label htmlFor="value">Value:</label>
+              <label htmlFor="value" className="font-light">
+                Value:
+              </label>
               <DynamicInput
                 data-testid="value-input"
                 value={value}
