@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { getByTestId, getByText, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
 
@@ -160,41 +160,87 @@ describe(Search.name, () => {
   });
 
   describe("when the user submits the form", () => {
-    let operatorsField: HTMLElement | null;
-    let categoriesField: HTMLElement;
-    let valueField: HTMLElement | null;
+    describe("with values", () => {
+      let operatorsField: HTMLElement | null;
+      let categoriesField: HTMLElement;
+      let valueField: HTMLElement | null;
 
-    let submitButton: HTMLElement;
+      let submitButton: HTMLElement;
 
-    beforeEach(async () => {
-      categoriesField = screen.getByTestId("category-select");
+      beforeEach(async () => {
+        categoriesField = screen.getByTestId("category-select");
 
-      submitButton = screen.getByRole("button", { name: "Search" });
-      // Change category
-      await userEvent.click(categoriesField);
-      await userEvent.selectOptions(categoriesField, "Product Name");
+        submitButton = screen.getByRole("button", { name: "Search" });
+        // Change category
+        await userEvent.click(categoriesField);
+        await userEvent.selectOptions(categoriesField, "Product Name");
 
-      // These fields are only visble after the categories value is changed
-      operatorsField = screen.queryByTestId("operator-select");
-      valueField = screen.queryByTestId("string-field");
-      // Change operator
-      await userEvent.click(operatorsField as HTMLElement);
-      await userEvent.selectOptions(operatorsField as HTMLElement, "equals");
-      // Change input value
-      await userEvent.type(valueField as HTMLElement, "value");
+        // These fields are only visble after the categories value is changed
+        operatorsField = screen.queryByTestId("operator-select");
+        valueField = screen.queryByTestId("string-field");
+        // Change operator
+        await userEvent.click(operatorsField as HTMLElement);
+        await userEvent.selectOptions(operatorsField as HTMLElement, "equals");
+        // Change input value
+        await userEvent.type(valueField as HTMLElement, "value");
+      });
+
+      it("should call the onSubmit callback with the selected options", async () => {
+        await userEvent.click(submitButton);
+
+        expect(onSubmit).toHaveBeenCalledWith({
+          property: {
+            id: 0,
+            name: "Product Name",
+            type: "string",
+          },
+          operator: { text: "Equals", id: "equals" },
+          value: "value",
+        });
+      });
     });
 
-    it("should call the onSubmit callback with the selected options", async () => {
-      await userEvent.click(submitButton);
+    describe("without values", () => {
+      let submitButton: HTMLElement;
 
-      expect(onSubmit).toHaveBeenCalledWith({
-        property: {
-          id: 0,
-          name: "Product Name",
-          type: "string",
-        },
-        operator: { text: "Equals", id: "equals" },
-        value: "value",
+      beforeEach(async () => {
+        submitButton = screen.getByRole("button", { name: "Search" });
+        await userEvent.click(submitButton);
+      });
+
+      it("should not call onSubmit callback", () => {
+        expect(onSubmit).not.toHaveBeenCalled();
+      });
+
+      it("should show error message", () => {
+        expect(screen.getByTestId("error-message")).toBeInTheDocument();
+      });
+
+      describe("when the user types the values", () => {
+        it("should clear error state", async () => {
+          const categoriesField = screen.getByTestId("category-select");
+
+          // Change category
+          await userEvent.click(categoriesField);
+          await userEvent.selectOptions(categoriesField, "Product Name");
+
+          // These fields are only visble after the categories value is changed
+          const operatorsField = screen.queryByTestId("operator-select");
+          const valueField = screen.queryByTestId("string-field");
+          // Change operator
+          await userEvent.click(operatorsField as HTMLElement);
+          await userEvent.selectOptions(
+            operatorsField as HTMLElement,
+            "equals"
+          );
+          // Change input value
+          await userEvent.type(valueField as HTMLElement, "value");
+
+          // submit the form again
+          await userEvent.click(submitButton);
+
+          expect(screen.queryByTestId("error-message")).not.toBeInTheDocument();
+        });
       });
     });
   });

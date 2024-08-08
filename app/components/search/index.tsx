@@ -27,7 +27,9 @@ const Search = ({ categories, operators, onClear, onSubmit }: SearchProps) => {
   const [currentOperator, setCurrentOperator] = useState<Operator>();
   const [currentCategoryProperty, setCurrentCategoryProperty] =
     useState<Property>();
-  const [value, setValue] = useState<string>("");
+  const [value, setValue] = useState<string>();
+
+  const [isValid, setIsValid] = useState(true);
 
   /**
    * When the user clicks search we need to call the onSubmit callback
@@ -38,11 +40,16 @@ const Search = ({ categories, operators, onClear, onSubmit }: SearchProps) => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
-    onSubmit({
-      property: currentCategoryProperty,
-      operator: currentOperator,
-      value,
-    });
+    if (!currentCategoryProperty || !currentOperator || !value) {
+      setIsValid(false);
+    } else {
+      setIsValid(true);
+      onSubmit({
+        property: currentCategoryProperty,
+        operator: currentOperator,
+        value,
+      });
+    }
   };
 
   /**
@@ -102,10 +109,11 @@ const Search = ({ categories, operators, onClear, onSubmit }: SearchProps) => {
   };
 
   /**
-   * Resets the form state
+   * Resets the form state and error state
    * Calls onClear callback
    */
   const handleOnClear = () => {
+    setIsValid(true);
     setCurrentCategoryProperty({ id: -1, name: "", type: undefined });
     setCurrentOperator({ id: "empty", text: "" });
     setValue("");
@@ -116,63 +124,75 @@ const Search = ({ categories, operators, onClear, onSubmit }: SearchProps) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex w-full justify-between border border-sky-900 py-10 px-4 rounded-sm"
+      className="flex w-full border border-sky-900 py-10 px-4 rounded-sm flex-col gap-4"
     >
-      <div className="flex gap-10">
-        <fieldset className="flex gap-2 items-center">
-          <label htmlFor="category" className="font-light">
-            Category:
-          </label>
-          <select
-            data-testid="category-select"
-            name="category"
-            id="category"
-            onChange={handleCategoryChange}
-            className="border p-2 border-gray-400 rounded-sm text-sm focus:border-blue-500 focus:ring-blue-500"
-            value={currentCategoryProperty?.id}
-          >
-            <option value="-1">Choose Category</option>
-            {categories.map((category) => (
-              <option key={category.id} value={category.id}>
-                {category.name}
-              </option>
-            ))}
-          </select>
-        </fieldset>
-        {visibleOperators.length > 0 && (
+      <div className="flex justify-between flex-row w-full">
+        <div className="flex gap-10">
           <fieldset className="flex gap-2 items-center">
-            <label htmlFor="operator">Operator:</label>
+            <label htmlFor="category" className="font-light">
+              Category:
+            </label>
             <select
-              data-testid="operator-select"
-              name="operator"
-              id="operator"
-              onChange={handleOperatorChange}
+              aria-required
+              required
+              data-testid="category-select"
+              name="category"
+              id="category"
+              onChange={handleCategoryChange}
               className="border p-2 border-gray-400 rounded-sm text-sm focus:border-blue-500 focus:ring-blue-500"
-              value={currentOperator?.id}
+              value={currentCategoryProperty?.id}
             >
-              <option value="empty">Choose Operator</option>
-              {visibleOperators.map((operator) => (
-                <option key={operator.id} value={operator.id}>
-                  {operator.text}
+              <option value="-1">Choose Category</option>
+              {categories.map((category) => (
+                <option key={category.id} value={category.id}>
+                  {category.name}
                 </option>
               ))}
             </select>
           </fieldset>
-        )}
-        {currentCategoryProperty && currentCategoryProperty.id !== -1 && (
-          <fieldset className="flex gap-2 items-center">
-            <label htmlFor="value">Value:</label>
-            <DynamicInput
-              data-testid="value-input"
-              value={value}
-              type={currentCategoryProperty.type}
-              values={currentCategoryProperty.values}
-              handleChange={handleValueChange}
-            />
-          </fieldset>
-        )}
+          {visibleOperators.length > 0 && (
+            <fieldset className="flex gap-2 items-center">
+              <label htmlFor="operator">Operator:</label>
+              <select
+                aria-required
+                required
+                data-testid="operator-select"
+                name="operator"
+                id="operator"
+                onChange={handleOperatorChange}
+                className="border p-2 border-gray-400 rounded-sm text-sm focus:border-blue-500 focus:ring-blue-500"
+                value={currentOperator?.id}
+              >
+                <option value="empty">Choose Operator</option>
+                {visibleOperators.map((operator) => (
+                  <option key={operator.id} value={operator.id}>
+                    {operator.text}
+                  </option>
+                ))}
+              </select>
+            </fieldset>
+          )}
+          {currentCategoryProperty && currentCategoryProperty.id !== -1 && (
+            <fieldset className="flex gap-2 items-center">
+              <label htmlFor="value">Value:</label>
+              <DynamicInput
+                data-testid="value-input"
+                value={value}
+                type={currentCategoryProperty.type}
+                values={currentCategoryProperty.values}
+                handleChange={handleValueChange}
+              />
+            </fieldset>
+          )}
+        </div>
+        <ActionButtons handleOnClear={handleOnClear} />
       </div>
-      <ActionButtons handleOnClear={handleOnClear} />
+      {!isValid && (
+        <p className="text-sm text-red-800" data-testid="error-message">
+          In order to perform a search action you must select a Category, an
+          Operator and a Value
+        </p>
+      )}
     </form>
   );
 };
