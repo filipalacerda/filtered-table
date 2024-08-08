@@ -124,6 +124,7 @@ describe(Search.name, () => {
     let valueField: HTMLElement | null;
 
     let clearButton: HTMLElement;
+
     beforeEach(async () => {
       categoriesField = screen.getByTestId("category-select");
 
@@ -155,6 +156,46 @@ describe(Search.name, () => {
     it("should call onClear callback", async () => {
       await userEvent.click(clearButton);
       expect(onClear).toHaveBeenCalled();
+    });
+  });
+
+  describe("when the user submits the form", () => {
+    let operatorsField: HTMLElement | null;
+    let categoriesField: HTMLElement;
+    let valueField: HTMLElement | null;
+
+    let submitButton: HTMLElement;
+
+    beforeEach(async () => {
+      categoriesField = screen.getByTestId("category-select");
+
+      submitButton = screen.getByRole("button", { name: "Search" });
+      // Change category
+      await userEvent.click(categoriesField);
+      await userEvent.selectOptions(categoriesField, "Product Name");
+
+      // These fields are only visble after the categories value is changed
+      operatorsField = screen.queryByTestId("operator-select");
+      valueField = screen.queryByTestId("string-field");
+      // Change operator
+      await userEvent.click(operatorsField as HTMLElement);
+      await userEvent.selectOptions(operatorsField as HTMLElement, "equals");
+      // Change input value
+      await userEvent.type(valueField as HTMLElement, "value");
+    });
+
+    it("should call the onSubmit callback with the selected options", async () => {
+      await userEvent.click(submitButton);
+
+      expect(onSubmit).toHaveBeenCalledWith({
+        property: {
+          id: 0,
+          name: "Product Name",
+          type: "string",
+        },
+        operator: { text: "Equals", id: "equals" },
+        value: "value",
+      });
     });
   });
 });
