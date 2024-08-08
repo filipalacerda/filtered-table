@@ -91,7 +91,11 @@ describe(Search.name, () => {
       await userEvent.selectOptions(operatorsField, "equals");
       // Test that the value changed
       expect(
-        screen.getByRole("option", { name: "Choose Operator" }).selected
+        (
+          screen.getByRole("option", {
+            name: "Choose Operator",
+          }) as HTMLOptionElement
+        ).selected
       ).toBe(false);
 
       await userEvent.click(input);
@@ -99,7 +103,11 @@ describe(Search.name, () => {
       await userEvent.selectOptions(input, "color");
 
       expect(
-        screen.getByRole("option", { name: "Choose Operator" }).selected
+        (
+          screen.getByRole("option", {
+            name: "Choose Operator",
+          }) as HTMLOptionElement
+        ).selected
       ).toBe(true);
     });
 
@@ -146,7 +154,7 @@ describe(Search.name, () => {
     it("should clear the fields", async () => {
       await userEvent.click(clearButton);
 
-      expect(categoriesField.value).toEqual("-1");
+      expect((categoriesField as HTMLOptionElement).value).toEqual("-1");
 
       expect(operatorsField).not.toBeInTheDocument();
 
