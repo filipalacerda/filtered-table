@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useMemo, useState } from "react";
 import type { Operator, Property, Filters } from "../../types/types";
 
 type SearchProps = {
@@ -8,6 +8,14 @@ type SearchProps = {
   operators: Operator[];
   onSubmit: ({ property, operator, value }: Filters) => void;
   onClear: () => void;
+};
+
+// TODO filter operators
+const filterOperators = (
+  operators: Operator[],
+  categorySelected?: Property
+) => {
+  return operators;
 };
 
 /**
@@ -29,13 +37,57 @@ const Search = ({ categories, operators, onClear, onSubmit }: SearchProps) => {
     e.preventDefault();
   };
 
-  const handleCategoryChange = (e: ChangeEvent<HTMLSelectElement>) => {};
+  /**
+   * Not all operators are available for every type.
+   * We need to filter the operators depending on the category type
+   */
+  const visibleOperators = useMemo(
+    () => filterOperators(operators, currentCategoryProperty),
+    [operators, currentCategoryProperty]
+  );
 
-  const handleOperatorChange = (e: ChangeEvent<HTMLSelectElement>) => {};
+  /**
+   * When the user selects a category, we need to update the state.
+   * We search for the correspondent id, since we'll need the full object for the onSubmit callback
+   * We'll also need the category to show the possible operators
+   * @param e: ChangeEvent
+   */
+  const handleCategoryChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value;
 
+    const categorySelected = categories.filter((category) => {
+      return category.id === parseInt(value);
+    })[0];
+
+    setCurrentCategoryProperty(categorySelected);
+  };
+
+  /**
+   * When the user selects an operator, we need to store it
+   * in order to be able to use it on the onSubmit callback
+   * @param e: ChangeEvent
+   */
+  const handleOperatorChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value;
+
+    const operatorSelected = operators.filter((operator) => {
+      return operator.id === value;
+    })[0];
+
+    setCurrentOperator(operatorSelected);
+  };
+
+  /**
+   * When the user types a value or selects an option,
+   * we need to store the value so we can use it on the onSubmit callback
+   * @param e: ChangeEvent
+   */
   const handleValueChange = (
     e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>
-  ) => {};
+  ) => {
+    const value = e.target.value;
+    setValue(value);
+  };
 
   /**
    * The value option depends on the category selected
@@ -117,7 +169,7 @@ const Search = ({ categories, operators, onClear, onSubmit }: SearchProps) => {
             value={currentOperator?.id}
           >
             <option value="empty">Choose Operator</option>
-            {operators.map((operator) => (
+            {visibleOperators.map((operator) => (
               <option key={operator.id} value={operator.id}>
                 {operator.text}
               </option>
