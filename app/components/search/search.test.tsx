@@ -169,31 +169,23 @@ describe(Search.name, () => {
 
   describe("when the user submits the form", () => {
     describe("with values", () => {
-      let operatorsField: HTMLElement | null;
-      let categoriesField: HTMLElement;
-      let valueField: HTMLElement | null;
+      it("should call the onSubmit callback with the selected options", async () => {
+        const categoriesField = screen.getByTestId("category-select");
 
-      let submitButton: HTMLElement;
-
-      beforeEach(async () => {
-        categoriesField = screen.getByTestId("category-select");
-
-        submitButton = screen.getByRole("button", { name: "Search" });
+        const submitButton = screen.getByRole("button", { name: "Search" });
         // Change category
         await userEvent.click(categoriesField);
         await userEvent.selectOptions(categoriesField, "Product Name");
 
         // These fields are only visble after the categories value is changed
-        operatorsField = screen.queryByTestId("operator-select");
-        valueField = screen.queryByTestId("string-field");
+        const operatorsField = screen.queryByTestId("operator-select");
+        const valueField = screen.queryByTestId("string-field");
         // Change operator
         await userEvent.click(operatorsField as HTMLElement);
         await userEvent.selectOptions(operatorsField as HTMLElement, "equals");
         // Change input value
         await userEvent.type(valueField as HTMLElement, "value");
-      });
 
-      it("should call the onSubmit callback with the selected options", async () => {
         await userEvent.click(submitButton);
 
         expect(onSubmit).toHaveBeenCalledWith({
