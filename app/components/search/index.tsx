@@ -3,6 +3,8 @@
 import { ChangeEvent, FormEvent, useMemo, useState } from "react";
 import type { Operator, Property, Filters } from "../../types/types";
 
+import DynamicInput from "./dynamicInput";
+
 type SearchProps = {
   categories: Property[];
   operators: Operator[];
@@ -82,54 +84,8 @@ const Search = ({ categories, operators, onClear, onSubmit }: SearchProps) => {
    * we need to store the value so we can use it on the onSubmit callback
    * @param e: ChangeEvent
    */
-  const handleValueChange = (
-    e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>
-  ) => {
-    const value = e.target.value;
+  const handleValueChange = (value: string) => {
     setValue(value);
-  };
-
-  /**
-   * The value option depends on the category selected
-   * It could be a string, a number or enumerated list.
-   * Depending on the type, we render a different type of input
-   * @returns React.Element
-   */
-  const getValueOption = () => {
-    const type = currentCategoryProperty?.type;
-
-    if (type === "enumerated") {
-      return (
-        <select
-          onChange={handleValueChange}
-          className="border p-2 border-gray-400 rounded-sm text-sm focus:border-blue-500 focus:ring-blue-500"
-        >
-          <option>Choose Value</option>
-          {currentCategoryProperty?.values &&
-            currentCategoryProperty?.values.map((value) => (
-              <option key={value} value={value}>
-                {value}
-              </option>
-            ))}
-        </select>
-      );
-    } else if (type === "string") {
-      return (
-        <input
-          type="text"
-          onChange={handleValueChange}
-          className="border border-gray-400 rounded-sm font-light text-sm p-2"
-        />
-      );
-    } else if (type === "number") {
-      return (
-        <input
-          type="number"
-          onChange={handleValueChange}
-          className="border border-gray-400 rounded-sm font-light text-sm p-2"
-        />
-      );
-    }
   };
 
   const handleOnClear = () => {};
@@ -179,7 +135,11 @@ const Search = ({ categories, operators, onClear, onSubmit }: SearchProps) => {
         {currentCategoryProperty && currentCategoryProperty.id !== -1 && (
           <fieldset className="flex gap-2 items-center">
             <label htmlFor="value">Value:</label>
-            {getValueOption()}
+            <DynamicInput
+              type={currentCategoryProperty.type}
+              values={currentCategoryProperty.values}
+              handleChange={handleValueChange}
+            />
           </fieldset>
         )}
       </div>
