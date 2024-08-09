@@ -272,4 +272,5 @@ export {
   normalizeValueToNumber,
   equalFilter,
   greaterThanFilter,
+  lessThanFilter,
 };

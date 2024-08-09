@@ -4,6 +4,7 @@ import {
   normalizeValueToString,
   equalFilter,
   greaterThanFilter,
+  lessThanFilter,
 } from "./filterProducts";
 
 import datastore from "../data/data";
@@ -128,7 +129,7 @@ describe("FilterProducts", () => {
     it("returns the provided products when no value is provided", () => {
       const result = greaterThanFilter(products, {
         property: properties[2] as Property,
-        operator: operators[0],
+        operator: operators[1],
       });
 
       expect(result).toEqual(products);
@@ -156,6 +157,49 @@ describe("FilterProducts", () => {
             {
               property_id: 2,
               value: 19,
+            },
+            {
+              property_id: 3,
+              value: "tools",
+            },
+          ],
+        },
+      ]);
+    });
+  });
+
+  describe(lessThanFilter.name, () => {
+    it("returns the provided products when no value is provided", () => {
+      const result = lessThanFilter(products, {
+        property: properties[3] as Property,
+        operator: operators[3],
+      });
+
+      expect(result).toEqual(products);
+    });
+
+    it("returns the products where the property value is less than the provided value", () => {
+      const result = lessThanFilter(products, {
+        property: properties[2] as Property,
+        operator: operators[1],
+        value: "3",
+      });
+
+      expect(result).toEqual([
+        {
+          id: 4,
+          property_values: [
+            {
+              property_id: 0,
+              value: "Key",
+            },
+            {
+              property_id: 1,
+              value: "silver",
+            },
+            {
+              property_id: 2,
+              value: 1,
             },
             {
               property_id: 3,
