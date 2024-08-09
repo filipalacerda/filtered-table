@@ -30,6 +30,16 @@ const Search = ({ categories, operators, onClear, onSubmit }: SearchProps) => {
 
   const [isValid, setIsValid] = useState(true);
 
+  /**
+   * We need at least the category and the operator
+   * in order to filter the results
+   *
+   * When the operator is either none or any, the value is not required
+   * For the remaining operators, the value is required.
+   *
+   * We only allow the user to submit the form is these conditions are met.
+   *
+   */
   const checkIsValid = () => {
     if (!currentCategoryProperty) {
       return false;
@@ -249,7 +259,7 @@ const Search = ({ categories, operators, onClear, onSubmit }: SearchProps) => {
       {!isValid && (
         <p className="text-sm text-red-800" data-testid="error-message">
           In order to perform a search action you must select a Category, an
-          Operator and a Value
+          Operator and/or a Value
         </p>
       )}
     </form>
