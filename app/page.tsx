@@ -5,16 +5,9 @@ import datastore from "./data/data";
 import Table from "./components/table";
 import Search from "./components/search";
 
-import type { Products, Operator, Property, Filters } from "./types/types";
+import { filterProducts } from "./filterProducts/filterProducts";
 
-// TODO: Extract logic into it's own file and add the filters
-const filterProducts = (products: Products, filters?: Filters) => {
-  if (filters) {
-    return products;
-  } else {
-    return products;
-  }
-};
+import type { Products, Operator, Property, Filters } from "./types/types";
 
 const Home = () => {
   // datastore values
@@ -36,7 +29,9 @@ const Home = () => {
     [products, filters]
   );
 
-  const handleOnSearch = () => {};
+  const handleOnSearch = () => {
+    setFilters({});
+  };
 
   return (
     <main className="flex min-h-screen flex-col gap-10 w-full p-24">
