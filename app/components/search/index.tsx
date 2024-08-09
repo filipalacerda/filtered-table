@@ -9,7 +9,7 @@ import { filterOperators } from "./utils";
 type SearchProps = {
   categories: Property[];
   operators: Operator[];
-  onSubmit: ({ property, operator, value }: Filters) => void;
+  onChange: ({ property, operator, value }: Filters) => void;
   onClear: () => void;
 };
 
@@ -20,7 +20,7 @@ type SearchProps = {
  * - a dynamic field that depends on the categories for the search value
  * - a clear button that resets the state of the form
  */
-const Search = ({ categories, operators, onClear, onSubmit }: SearchProps) => {
+const Search = ({ categories, operators, onClear, onChange }: SearchProps) => {
   // We need to save the selected values
   const [currentOperator, setCurrentOperator] = useState<Operator>();
   const [currentCategoryProperty, setCurrentCategoryProperty] =
@@ -38,7 +38,7 @@ const Search = ({ categories, operators, onClear, onSubmit }: SearchProps) => {
 
   /**
    * When the user selects a category, we need to update the state.
-   * We search for the correspondent id, since we'll need the full object for the onSubmit callback
+   * We search for the correspondent id, since we'll need the full object for the onChange callback
    *
    * We'll also need the category to show the possible operators
    *
@@ -56,7 +56,7 @@ const Search = ({ categories, operators, onClear, onSubmit }: SearchProps) => {
 
     setCurrentCategoryProperty(categorySelected);
 
-    onSubmit({
+    onChange({
       property: categorySelected,
       operator: currentOperator,
       value: currentValue,
@@ -65,7 +65,7 @@ const Search = ({ categories, operators, onClear, onSubmit }: SearchProps) => {
 
   /**
    * When the user selects an operator, we need to store it
-   * in order to be able to use it on the onSubmit callback
+   * in order to be able to use it on the onChange callback
    * @param e: ChangeEvent
    */
   const handleOperatorChange = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -77,7 +77,7 @@ const Search = ({ categories, operators, onClear, onSubmit }: SearchProps) => {
 
     setCurrentOperator(operatorSelected);
 
-    onSubmit({
+    onChange({
       property: currentCategoryProperty,
       operator: operatorSelected,
       value: currentValue,
@@ -86,13 +86,13 @@ const Search = ({ categories, operators, onClear, onSubmit }: SearchProps) => {
 
   /**
    * When the user types a value or selects an option,
-   * we need to store the value so we can use it on the onSubmit callback
+   * we need to store the value so we can use it on the onChange callback
    * @param e: ChangeEvent
    */
   const handleValueChange = (value: string) => {
     setCurrentValue(value);
 
-    onSubmit({
+    onChange({
       property: currentCategoryProperty,
       operator: currentOperator,
       value,

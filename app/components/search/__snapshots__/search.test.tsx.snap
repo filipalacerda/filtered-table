@@ -3,80 +3,75 @@
 exports[`Search when component renders should match snapshot 1`] = `
 <div>
   <form
-    class="flex w-full border border-sky-900 py-10 px-4 rounded-sm flex-col gap-4"
+    class="flex w-full border border-sky-900 py-10 px-4 justify-between rounded-sm gap-4"
   >
     <div
-      class="flex justify-between flex-row w-full"
+      class="flex gap-10"
     >
-      <div
-        class="flex gap-10"
+      <fieldset
+        class="flex gap-2 items-center"
       >
-        <fieldset
-          class="flex gap-2 items-center"
+        <label
+          class="font-light"
+          for="category"
         >
-          <label
-            class="font-light"
-            for="category"
+          Category:
+        </label>
+        <select
+          aria-required="true"
+          class="border p-2 border-gray-400 rounded-sm text-sm focus:border-blue-500 focus:ring-blue-500"
+          data-testid="category-select"
+          id="category"
+          name="category"
+          required=""
+        >
+          <option
+            value="-1"
           >
-            Category:
-          </label>
-          <select
-            aria-required="true"
-            class="border p-2 border-gray-400 rounded-sm text-sm focus:border-blue-500 focus:ring-blue-500"
-            data-testid="category-select"
-            id="category"
-            name="category"
-            required=""
+            Choose Category
+          </option>
+          <option
+            class="bg-white"
+            value="0"
           >
-            <option
-              value="-1"
-            >
-              Choose Category
-            </option>
-            <option
-              value="0"
-            >
-              Product Name
-            </option>
-            <option
-              value="1"
-            >
-              color
-            </option>
-            <option
-              value="2"
-            >
-              weight (oz)
-            </option>
-            <option
-              value="3"
-            >
-              category
-            </option>
-            <option
-              value="4"
-            >
-              wireless
-            </option>
-          </select>
-        </fieldset>
-      </div>
-      <div
-        class="flex gap-10"
+            Product Name
+          </option>
+          <option
+            class="bg-white"
+            value="1"
+          >
+            color
+          </option>
+          <option
+            class="bg-white"
+            value="2"
+          >
+            weight (oz)
+          </option>
+          <option
+            class="bg-white"
+            value="3"
+          >
+            category
+          </option>
+          <option
+            class="bg-white"
+            value="4"
+          >
+            wireless
+          </option>
+        </select>
+      </fieldset>
+    </div>
+    <div
+      class="flex"
+    >
+      <button
+        class="bg-blue-700 hover:bg-blue-900 text-white text-sm py-2 px-4 rounded"
+        type="button"
       >
-        <button
-          class="bg-green-500 hover:bg-green-700 text-white  py-2 px-4 rounded"
-          type="submit"
-        >
-          Search
-        </button>
-        <button
-          class="bg-blue-500 hover:bg-blue-700 text-white  py-2 px-4 rounded"
-          type="button"
-        >
-          Clear
-        </button>
-      </div>
+        Clear
+      </button>
     </div>
   </form>
 </div>

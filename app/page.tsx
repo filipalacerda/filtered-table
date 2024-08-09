@@ -43,7 +43,7 @@ const Home = () => {
         <Search
           categories={properties}
           operators={operators}
-          onSubmit={handleOnSearch}
+          onChange={handleOnSearch}
           onClear={handleOnClear}
         />
       </section>

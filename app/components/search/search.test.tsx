@@ -8,7 +8,7 @@ import type { Property } from "@/app/types/types";
 import Search from "./index";
 
 describe(Search.name, () => {
-  const onSubmit = jest.fn();
+  const onChange = jest.fn();
   const onClear = jest.fn();
   const operators = datastore.getOperators();
   const properties = datastore.getProperties();
@@ -18,7 +18,7 @@ describe(Search.name, () => {
   beforeEach(() => {
     container = render(
       <Search
-        onSubmit={onSubmit}
+        onChange={onChange}
         onClear={onClear}
         categories={properties as Property[]}
         operators={operators}
@@ -44,12 +44,6 @@ describe(Search.name, () => {
       expect(screen.queryByTestId("value-input")).not.toBeInTheDocument();
     });
 
-    it("should render the submit button", () => {
-      expect(
-        screen.getByRole("button", { name: "Search" })
-      ).toBeInTheDocument();
-    });
-
     it("should render the Clear button", () => {
       expect(screen.getByRole("button", { name: "Clear" })).toBeInTheDocument();
     });
@@ -71,58 +65,77 @@ describe(Search.name, () => {
     it("should render the value input", () => {
       expect(screen.getByTestId("string-field")).toBeInTheDocument();
     });
+
+    it("should call onChange callback with the selected value", () => {
+      expect(onChange).toHaveBeenCalledWith({
+        property: {
+          id: 0,
+          name: "Product Name",
+          type: "string",
+        },
+        operator: undefined,
+        value: undefined,
+      });
+    });
   });
 
-  describe("When the user re-selects a category", () => {
-    let input: HTMLElement;
-
-    beforeEach(async () => {
-      input = screen.getByTestId("category-select");
+  describe("when the user selects an operator", () => {
+    it("should call onChange callback", async () => {
+      const input = screen.getByTestId("category-select");
 
       await userEvent.click(input);
 
       await userEvent.selectOptions(input, "Product Name");
-    });
 
-    it("should reset the operators field", async () => {
       const operatorsField = screen.getByTestId("operator-select");
       await userEvent.click(operatorsField);
 
       await userEvent.selectOptions(operatorsField, "equals");
-      // Test that the value changed
-      expect(
-        (
-          screen.getByRole("option", {
-            name: "Choose Operator",
-          }) as HTMLOptionElement
-        ).selected
-      ).toBe(false);
+
+      expect(onChange).toHaveBeenCalledWith({
+        property: {
+          id: 0,
+          name: "Product Name",
+          type: "string",
+        },
+        operator: {
+          text: "Equals",
+          id: "equals",
+        },
+        value: undefined,
+      });
+    });
+  });
+
+  describe("when the user types a value", () => {
+    it("should call onChange callback", async () => {
+      const input = screen.getByTestId("category-select");
 
       await userEvent.click(input);
 
-      await userEvent.selectOptions(input, "color");
+      await userEvent.selectOptions(input, "Product Name");
 
-      expect(
-        (
-          screen.getByRole("option", {
-            name: "Choose Operator",
-          }) as HTMLOptionElement
-        ).selected
-      ).toBe(true);
-    });
+      const operatorsField = screen.getByTestId("operator-select");
+      await userEvent.click(operatorsField);
 
-    it("should reset the value field", async () => {
+      await userEvent.selectOptions(operatorsField, "equals");
+
       const inputField = screen.getByTestId("string-field");
 
       await userEvent.type(inputField, "value");
 
-      await expect(inputField.getAttribute("value")).toEqual("value");
-
-      await userEvent.click(input);
-
-      await userEvent.selectOptions(input, "color");
-
-      expect(inputField.getAttribute("value")).toEqual("");
+      expect(onChange).toHaveBeenCalledWith({
+        property: {
+          id: 0,
+          name: "Product Name",
+          type: "string",
+        },
+        operator: {
+          text: "Equals",
+          id: "equals",
+        },
+        value: "value",
+      });
     });
   });
 
@@ -164,84 +177,6 @@ describe(Search.name, () => {
     it("should call onClear callback", async () => {
       await userEvent.click(clearButton);
       expect(onClear).toHaveBeenCalled();
-    });
-  });
-
-  describe("when the user submits the form", () => {
-    describe("with values", () => {
-      it("should call the onSubmit callback with the selected options", async () => {
-        const categoriesField = screen.getByTestId("category-select");
-
-        const submitButton = screen.getByRole("button", { name: "Search" });
-        // Change category
-        await userEvent.click(categoriesField);
-        await userEvent.selectOptions(categoriesField, "Product Name");
-
-        // These fields are only visble after the categories value is changed
-        const operatorsField = screen.queryByTestId("operator-select");
-        const valueField = screen.queryByTestId("string-field");
-        // Change operator
-        await userEvent.click(operatorsField as HTMLElement);
-        await userEvent.selectOptions(operatorsField as HTMLElement, "equals");
-        // Change input value
-        await userEvent.type(valueField as HTMLElement, "value");
-
-        await userEvent.click(submitButton);
-
-        expect(onSubmit).toHaveBeenCalledWith({
-          property: {
-            id: 0,
-            name: "Product Name",
-            type: "string",
-          },
-          operator: { text: "Equals", id: "equals" },
-          value: "value",
-        });
-      });
-    });
-
-    describe("without values", () => {
-      let submitButton: HTMLElement;
-
-      beforeEach(async () => {
-        submitButton = screen.getByRole("button", { name: "Search" });
-        await userEvent.click(submitButton);
-      });
-
-      it("should not call onSubmit callback", () => {
-        expect(onSubmit).not.toHaveBeenCalled();
-      });
-
-      it("should show error message", () => {
-        expect(screen.getByTestId("error-message")).toBeInTheDocument();
-      });
-
-      describe("when the user types the values", () => {
-        it("should clear error state", async () => {
-          const categoriesField = screen.getByTestId("category-select");
-
-          // Change category
-          await userEvent.click(categoriesField);
-          await userEvent.selectOptions(categoriesField, "Product Name");
-
-          // These fields are only visble after the categories value is changed
-          const operatorsField = screen.queryByTestId("operator-select");
-          const valueField = screen.queryByTestId("string-field");
-          // Change operator
-          await userEvent.click(operatorsField as HTMLElement);
-          await userEvent.selectOptions(
-            operatorsField as HTMLElement,
-            "equals"
-          );
-          // Change input value
-          await userEvent.type(valueField as HTMLElement, "value");
-
-          // submit the form again
-          await userEvent.click(submitButton);
-
-          expect(screen.queryByTestId("error-message")).not.toBeInTheDocument();
-        });
-      });
     });
   });
 });
