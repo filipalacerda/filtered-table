@@ -31,31 +31,33 @@ const equalFilter = (products: Products, filters: Filters) => {
   const propertyId = filters.property?.id;
   const propertyType = filters.property?.type;
   const filterValue = filters.value as string;
-
-  const result = products.reduce((acc, product) => {
-    product.property_values.forEach((value) => {
-      if (value.property_id === propertyId) {
-        if (propertyType === "string" || propertyType === "enumerated") {
-          if (
-            normalizeValueToString(value.value) ===
-            normalizeValueToString(filterValue)
-          ) {
-            acc.push(product);
-          }
-        } else if (propertyType === "number") {
-          if (
-            normalizeValueToNumber(value.value) ===
-            normalizeValueToNumber(filterValue)
-          ) {
-            acc.push(product);
+  // Only filters after the user types in a value
+  if (!filterValue) {
+    return products;
+  } else {
+    return products.reduce((acc, product) => {
+      product.property_values.forEach((value) => {
+        if (value.property_id === propertyId) {
+          if (propertyType === "string" || propertyType === "enumerated") {
+            if (
+              normalizeValueToString(value.value) ===
+              normalizeValueToString(filterValue)
+            ) {
+              acc.push(product);
+            }
+          } else if (propertyType === "number") {
+            if (
+              normalizeValueToNumber(value.value) ===
+              normalizeValueToNumber(filterValue)
+            ) {
+              acc.push(product);
+            }
           }
         }
-      }
-    });
-    return acc;
-  }, [] as Products);
-
-  return result;
+      });
+      return acc;
+    }, [] as Products);
+  }
 };
 
 /**
@@ -71,18 +73,22 @@ const equalFilter = (products: Products, filters: Filters) => {
 const greaterThanFilter = (products: Products, filters: Filters) => {
   const propertyId = filters.property?.id;
   const filterValue = parseInt(filters.value as string);
-
-  return products.reduce((acc, product) => {
-    product.property_values.forEach((value) => {
-      const valueProperty = value.value as number;
-      if (value.property_id === propertyId) {
-        if (valueProperty > filterValue) {
-          acc.push(product);
+  // Only filters after the user types in a value
+  if (!filterValue) {
+    return products;
+  } else {
+    return products.reduce((acc, product) => {
+      product.property_values.forEach((value) => {
+        const valueProperty = value.value as number;
+        if (value.property_id === propertyId) {
+          if (valueProperty > filterValue) {
+            acc.push(product);
+          }
         }
-      }
-    });
-    return acc;
-  }, [] as Products);
+      });
+      return acc;
+    }, [] as Products);
+  }
 };
 
 /**
@@ -98,18 +104,22 @@ const greaterThanFilter = (products: Products, filters: Filters) => {
 const lessThanFilter = (products: Products, filters: Filters) => {
   const propertyId = filters.property?.id;
   const filterValue = parseInt(filters.value as string);
-
-  return products.reduce((acc, product) => {
-    product.property_values.forEach((value) => {
-      const valueProperty = value.value as number;
-      if (value.property_id === propertyId) {
-        if (valueProperty < filterValue) {
-          acc.push(product);
+  // Only filters after the user types in a value
+  if (!filterValue) {
+    return products;
+  } else {
+    return products.reduce((acc, product) => {
+      product.property_values.forEach((value) => {
+        const valueProperty = value.value as number;
+        if (value.property_id === propertyId) {
+          if (valueProperty < filterValue) {
+            acc.push(product);
+          }
         }
-      }
-    });
-    return acc;
-  }, [] as Products);
+      });
+      return acc;
+    }, [] as Products);
+  }
 };
 
 /**
@@ -157,15 +167,12 @@ const noneFilter = (products: Products, filters: Filters) => {
   }, [] as Products);
 };
 
-const containsFilter = (products: Products, filters: Filters) => {};
-
 /**
  * In the in filter, the value could have more than one world typed in.
  * According to the specs, the values will be separated by a comma.
  *
  * This function also assumes that a number can be typed in
  * although the input type is a number and won't allow for more than one number to be typed
- *
  *
  * @param products
  * @param filters
@@ -184,12 +191,11 @@ const inFilter = (products: Products, filters: Filters) => {
     products.forEach((product) => {
       product.property_values.forEach((value) => {
         if (value.property_id === propertyId) {
-          if (propertyType === "string") {
+          if (propertyType === "string" || propertyType === "enumerated") {
             if (
               normalizeValueToString(value.value) ===
               normalizeValueToString(filterValue)
             ) {
-              console.log("product", product);
               result.push(product);
             }
           } else if (propertyType === "number") {
@@ -205,6 +211,34 @@ const inFilter = (products: Products, filters: Filters) => {
     });
   }
   return result;
+};
+/**
+ * The contains filter checks if the product has the value typed in
+ * @param products
+ * @param filters
+ */
+const containsFilter = (products: Products, filters: Filters) => {
+  const propertyId = filters.property?.id;
+  const filterValue = filters.value as string;
+  // Only filters after the user types in a value
+  if (!filterValue) {
+    return products;
+  } else {
+    return products.reduce((acc, product) => {
+      product.property_values.forEach((value) => {
+        if (value.property_id === propertyId) {
+          if (
+            normalizeValueToString(value.value).includes(
+              normalizeValueToString(filterValue)
+            )
+          ) {
+            acc.push(product);
+          }
+        }
+      });
+      return acc;
+    }, [] as Products);
+  }
 };
 
 const filterProducts = (products: Products, filters?: Filters) => {

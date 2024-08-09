@@ -106,7 +106,7 @@ const Search = ({ categories, operators, onClear, onSubmit }: SearchProps) => {
   const handleOnClear = () => {
     setCurrentCategoryProperty({ id: -1, name: "", type: undefined });
     setCurrentOperator({ id: "empty", text: "" });
-    setValue("");
+    setCurrentValue("");
 
     onClear();
   };
@@ -171,7 +171,6 @@ const Search = ({ categories, operators, onClear, onSubmit }: SearchProps) => {
             </label>
             <DynamicInput
               data-testid="value-input"
-              value={currentValue}
               type={currentCategoryProperty.type}
               values={currentCategoryProperty.values}
               handleChange={handleValueChange}
