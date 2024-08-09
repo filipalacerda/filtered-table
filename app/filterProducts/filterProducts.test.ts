@@ -5,6 +5,7 @@ import {
   equalFilter,
   greaterThanFilter,
   lessThanFilter,
+  anyFilter,
 } from "./filterProducts";
 
 import datastore from "../data/data";
@@ -210,4 +211,6 @@ describe("FilterProducts", () => {
       ]);
     });
   });
+
+  describe(anyFilter.name, () => {});
 });

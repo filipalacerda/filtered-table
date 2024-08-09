@@ -1,14 +1,27 @@
 import { Filters, Products } from "../types/types";
 
+/**
+ * The value the user inputs could be all in uppercase.
+ * Also, one of the products properties is capitalized
+ * we want to make sure we are comparing the same string
+ * @param value
+ * @returns
+ */
 const normalizeValueToString = (value: string | number) => {
   if (typeof value === "string") {
     return value.toLowerCase();
   } else if (typeof value === "number") {
-    return value.toString().toLowerCase();
+    return value.toString();
   }
   return value;
 };
 
+/**
+ * For the greater_than and the less_than filters
+ * we need to parse the provided value to be a number
+ * @param value
+ * @returns
+ */
 const normalizeValueToNumber = (value: string | number) => {
   if (typeof value === "string") {
     return parseInt(value);
@@ -212,6 +225,7 @@ const inFilter = (products: Products, filters: Filters) => {
   }
   return result;
 };
+
 /**
  * The contains filter checks if the product has the value typed in
  * @param products
@@ -241,6 +255,14 @@ const containsFilter = (products: Products, filters: Filters) => {
   }
 };
 
+/**
+ * When no filters are provided, returns the products
+ * Used for when the user clears the form values
+ *
+ * @param products
+ * @param filters
+ * @returns Products
+ */
 const filterProducts = (products: Products, filters?: Filters) => {
   if (!filters || (filters && !Object.keys(filters).length)) {
     return products;
@@ -273,4 +295,5 @@ export {
   equalFilter,
   greaterThanFilter,
   lessThanFilter,
+  anyFilter,
 };
