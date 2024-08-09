@@ -266,4 +266,10 @@ const filterProducts = (products: Products, filters?: Filters) => {
   }
 };
 
-export { filterProducts };
+export {
+  filterProducts,
+  normalizeValueToString,
+  normalizeValueToNumber,
+  equalFilter,
+  greaterThanFilter,
+};
