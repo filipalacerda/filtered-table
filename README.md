@@ -7,6 +7,7 @@
   - [Technical Stack Decision](#technical-stack-decision)
     - [Styling Decision](#styling-decision)
     - [Filters decisions](#filters-decisions)
+      - [`contains`, `less_than`, `greater_than`, `equals`](#contains-less_than-greater_than-equals)
       - [`none` filter](#none-filter)
       - [`value` field of the search](#value-field-of-the-search)
   - [Code Strucutre](#code-strucutre)
@@ -37,6 +38,12 @@ I decided to use Tailwind CSS to speed up the development process. Ideally I wou
 The decision was made in order to focus on the JavaScript side and unit tests instead of writting the CSS myself. I'd rather have a usable and tested application.
 
 ### Filters decisions
+
+#### `contains`, `less_than`, `greater_than`, `equals`
+
+1. To allow the user to still see the values when selecting one of these operators the filter is only applied if a value was typed in.
+2. After the value is typed in, the filter is applied
+3. I followed this approach to allow the user to still see the results when applying a search with the three possible fields
 
 #### `none` filter
 
