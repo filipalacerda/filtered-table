@@ -29,7 +29,11 @@ const Home = () => {
     [products, filters]
   );
 
-  const handleOnSearch = () => {
+  const handleOnSearch = (values: Filters) => {
+    setFilters(values);
+  };
+
+  const handleOnClear = () => {
     setFilters({});
   };
 
@@ -40,7 +44,7 @@ const Home = () => {
           categories={properties}
           operators={operators}
           onSubmit={handleOnSearch}
-          onClear={() => {}}
+          onClear={handleOnClear}
         />
       </section>
       <section className="w-full">
