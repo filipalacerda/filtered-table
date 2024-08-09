@@ -30,6 +30,41 @@ const Search = ({ categories, operators, onClear, onSubmit }: SearchProps) => {
 
   const [isValid, setIsValid] = useState(true);
 
+  const checkIsValid = () => {
+    if (!currentCategoryProperty) {
+      return false;
+    }
+
+    if (!currentOperator) {
+      return false;
+    }
+
+    // If the operator is none or any, the value is not required
+    if (
+      (currentOperator?.id === ("none" as string) ||
+        currentOperator?.id === ("any" as string)) &&
+      !value
+    ) {
+      return true;
+    }
+
+    if (
+      (currentOperator?.id !== ("none" as string) ||
+        currentOperator?.id !== ("any" as string)) &&
+      !value
+    ) {
+      return false;
+    }
+
+    if (
+      (currentOperator?.id !== ("none" as string) ||
+        currentOperator?.id !== ("any" as string)) &&
+      value
+    ) {
+      return true;
+    }
+  };
+
   /**
    * When the user clicks search we need to call the onSubmit callback
    * with the form values
@@ -39,7 +74,10 @@ const Search = ({ categories, operators, onClear, onSubmit }: SearchProps) => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
-    if (!currentCategoryProperty || !currentOperator || !value) {
+    // If the operator is not has any value or has no value, all the fields are required
+    // Otherwise only the category and the operator are required
+
+    if (!checkIsValid()) {
       setIsValid(false);
     } else {
       setIsValid(true);
