@@ -31,14 +31,10 @@ const DynamicInput = ({ type, values, handleChange }: DynamicInputProps) => {
       data-testid="text-field"
       type="text"
       onChange={onChange}
-      className="border border-gray-400 rounded-sm font-light text-sm p-2"
+      className="input"
     />
   ) : type === "enumerated" ? (
-    <select
-      data-testid="select-field"
-      onChange={onChange}
-      className="border p-2 border-gray-400 rounded-sm text-sm focus:border-blue-500 focus:ring-blue-500"
-    >
+    <select data-testid="select-field" onChange={onChange} className="input">
       <option>Choose Value</option>
 
       {values &&

@@ -38,8 +38,8 @@ const Home = () => {
   };
 
   return (
-    <main className="flex min-h-screen flex-col gap-10 w-full p-24">
-      <section className="flex flex-row justify-between">
+    <main className="app">
+      <section className="search-container">
         <Search
           categories={properties}
           operators={operators}
@@ -47,7 +47,7 @@ const Home = () => {
           onClear={handleOnClear}
         />
       </section>
-      <section className="w-full">
+      <section className="table-container">
         <Table headers={properties} rows={visibleProducts} />
       </section>
     </main>

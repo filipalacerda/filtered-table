@@ -1,3 +1,37 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+.app {
+  display: flex;
+  padding: 6rem;
+  min-height: 100vh;
+  gap: 2.5rem;
+  flex-direction: column;
+}
+
+@media (max-width: 768px) {
+  .app {
+    padding: 1rem;
+  }
+  .search-container {
+    flex-direction: column;
+  }
+
+  .table-container {
+    overflow: scroll;
+  }
+}
+
+.search-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.table-container {
+  width: 100%;
+}
+
+fieldset {
+  border: none;
+}
+
+button {
+  border: none;
+}

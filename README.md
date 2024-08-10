@@ -40,9 +40,8 @@ For Styles, it uses TailwindCSS.
 
 ### Styling Decision
 
-I decided to use Tailwind CSS to speed up the development process. Ideally I would write the CSS my self, specially if I'm given specific designs.
-
-The decision was made in order to focus on the JavaScript side and unit tests instead of writting the CSS myself. I'd rather have a usable and tested application.
+Since no design was provided, I implemented a very basic CSS.
+The app is supposed to be as responsible as possible with an overflow table.
 
 ### Filters decisions
 
