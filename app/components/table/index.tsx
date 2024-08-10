@@ -1,5 +1,7 @@
 import type { Product, Property } from "../../types/types";
 
+import "./styles.css";
+
 type TableProps = {
   headers: Property[];
   rows: Product[];
@@ -12,11 +14,11 @@ type TableProps = {
  */
 const Table = ({ headers, rows }: TableProps) => {
   return (
-    <table className="min-w-full text-left text-sm font-light text-surface">
-      <thead className="border-b border-neutral-200 font-medium">
+    <table className="table">
+      <thead className="table-header">
         <tr>
           {headers.map((header) => (
-            <th key={header.id} scope="col" className="px-6 py-4">
+            <th key={header.id} scope="col" className="header-cell">
               {header.name}
             </th>
           ))}
@@ -25,12 +27,9 @@ const Table = ({ headers, rows }: TableProps) => {
       <tbody>
         {rows.length > 0 ? (
           rows.map((row: Product) => (
-            <tr key={row.id} className="border-b border-neutral-200">
+            <tr key={row.id} className="table-row">
               {row.property_values.map((cell) => (
-                <td
-                  key={cell.property_id}
-                  className="whitespace-nowrap px-6 py-4"
-                >
+                <td key={cell.property_id} className="cell">
                   {cell.value}
                 </td>
               ))}
@@ -38,10 +37,7 @@ const Table = ({ headers, rows }: TableProps) => {
           ))
         ) : (
           <tr>
-            <td
-              className="text-center text-md px-6 py-4"
-              colSpan={headers.length}
-            >
+            <td className="cell no-results" colSpan={headers.length}>
               No results found! Please try another search combination.
             </td>
           </tr>

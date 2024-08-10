@@ -1,0 +1,34 @@
+.table {
+  font-weight: 300;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  text-align: left;
+  min-width: 100%;
+  text-indent: 0;
+  border-color: inherit;
+  border-collapse: collapse;
+}
+
+.table-header {
+  font-weight: 500;
+  border-color: #e5e5e5;
+  border-bottom-width: 1px;
+}
+
+.header-cell {
+  padding: 1rem 1.5rem;
+}
+
+.table-row {
+  border-bottom-width: 1px;
+  border-color: #e5e5e5;
+}
+
+.cell {
+  white-space: nowrap;
+  padding: 1rem 1.5rem;
+}
+
+.no-results {
+  text-align: center;
+}
