@@ -23,6 +23,9 @@ describe("FilterProducts", () => {
     it("return a number when provided value is a string", () => {
       expect(normalizeValueToNumber("5")).toEqual(5);
     });
+    it("returns the provided value if it is not a string", () => {
+      expect(normalizeValueToNumber(5)).toEqual(5);
+    });
   });
 
   describe(normalizeValueToString.name, () => {
@@ -126,6 +129,38 @@ describe("FilterProducts", () => {
             {
               property_id: 4,
               value: "false",
+            },
+          ],
+        },
+      ]);
+    });
+
+    it("returns the exact match when value is a number", () => {
+      const result = equalFilter(products, {
+        property: properties[2] as Property,
+        operator: operators[0],
+        value: "19",
+      });
+
+      expect(result).toEqual([
+        {
+          id: 5,
+          property_values: [
+            {
+              property_id: 0,
+              value: "Hammer",
+            },
+            {
+              property_id: 1,
+              value: "brown",
+            },
+            {
+              property_id: 2,
+              value: 19,
+            },
+            {
+              property_id: 3,
+              value: "tools",
             },
           ],
         },
