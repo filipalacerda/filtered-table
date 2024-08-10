@@ -3,12 +3,9 @@
 exports[`DynamicInput when component renders should match snapshot 1`] = `
 <div>
   <input
-    aria-required="true"
     class="border border-gray-400 rounded-sm font-light text-sm p-2"
-    data-testid="string-field"
-    required=""
+    data-testid="text-field"
     type="text"
-    value=""
   />
 </div>
 `;

@@ -3,7 +3,6 @@ import { ChangeEvent } from "react";
 import type { PropertyType } from "@/app/types/types";
 
 type DynamicInputProps = {
-  value?: string;
   type: PropertyType;
   values?: string[];
   handleChange: (value: string) => void;
@@ -20,43 +19,22 @@ type DynamicInputProps = {
  * @param param0
  * @returns React.Element | null
  */
-const DynamicInput = ({
-  value,
-  type,
-  values,
-  handleChange,
-}: DynamicInputProps) => {
+const DynamicInput = ({ type, values, handleChange }: DynamicInputProps) => {
   const onChange = (
     e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>
   ) => {
     handleChange(e.target.value);
   };
 
-  return type === "string" ? (
+  return type === "string" || type === "number" ? (
     <input
-      aria-required
-      required
-      value={value}
-      data-testid="string-field"
+      data-testid="text-field"
       type="text"
-      onChange={onChange}
-      className="border border-gray-400 rounded-sm font-light text-sm p-2"
-    />
-  ) : type === "number" ? (
-    <input
-      aria-required
-      required
-      value={value}
-      data-testid="number-field"
-      type="number"
       onChange={onChange}
       className="border border-gray-400 rounded-sm font-light text-sm p-2"
     />
   ) : type === "enumerated" ? (
     <select
-      aria-required
-      required
-      value={value}
       data-testid="select-field"
       onChange={onChange}
       className="border p-2 border-gray-400 rounded-sm text-sm focus:border-blue-500 focus:ring-blue-500"

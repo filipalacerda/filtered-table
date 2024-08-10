@@ -23,18 +23,29 @@ const Table = ({ headers, rows }: TableProps) => {
         </tr>
       </thead>
       <tbody>
-        {rows.map((row: Product) => (
-          <tr key={row.id} className="border-b border-neutral-200">
-            {row.property_values.map((cell) => (
-              <td
-                key={cell.property_id}
-                className="whitespace-nowrap px-6 py-4"
-              >
-                {cell.value}
-              </td>
-            ))}
+        {rows.length > 0 ? (
+          rows.map((row: Product) => (
+            <tr key={row.id} className="border-b border-neutral-200">
+              {row.property_values.map((cell) => (
+                <td
+                  key={cell.property_id}
+                  className="whitespace-nowrap px-6 py-4"
+                >
+                  {cell.value}
+                </td>
+              ))}
+            </tr>
+          ))
+        ) : (
+          <tr>
+            <td
+              className="text-center text-md px-6 py-4"
+              colSpan={headers.length}
+            >
+              No results found
+            </td>
           </tr>
-        ))}
+        )}
       </tbody>
     </table>
   );
