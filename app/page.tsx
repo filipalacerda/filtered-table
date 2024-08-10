@@ -9,7 +9,7 @@ import { filterProducts } from "./filterProducts/filterProducts";
 
 import type { Products, Operator, Property, Filters } from "./types/types";
 
-const Home = () => {
+const App = () => {
   // datastore values
   const [products, setProducts] = useState<Products>([]);
   const [operators, setOperators] = useState<Operator[]>([]);
@@ -54,4 +54,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default App;
