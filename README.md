@@ -99,8 +99,7 @@ The code is divided in several parts:
 ## Future improvements
 
 1. The `none` filter should be improved. I don't think this solution would work for different Properties and Products from customer to customer if the data does not follow the assumption that the property id matches the index of the object in the property_values array of each product.
-2. The CSS should be implemented from scratch instead of using an external library, since this is a Frontend exercise and CSS is a big part of a frontend daily-job
-3. In a real-world application, we would most likely be fetching an API, which means I'd be implementing a loading and an error state
+2. In a real-world application, we would most likely be fetching an API, which means I'd be implementing a loading and an error state
 
 ## Run the Project
 
