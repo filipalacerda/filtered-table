@@ -36,8 +36,6 @@ Joana mentioned in the interview process that I should choose the tool I'm most 
 This project uses a React and Nextjs application using TypeScript.
 For unit tests, it uses Jest and React Testing Library.
 
-For Styles, it uses TailwindCSS.
-
 ### Styling Decision
 
 Since no design was provided, I implemented a very basic CSS.
