@@ -40,52 +40,431 @@ describe("FilterProducts", () => {
   });
 
   describe(filterProducts.name, () => {
-    describe("when operator is equals", () => {
-      // Property Product Name | Value Headphones
-      it("should return the exact match of the provided property_id", () => {});
-
-      it("should not return any other value besides the exact match of the provided property_id", () => {});
+    describe("with no filters", () => {
+      it("should return the products", () => {
+        const result = filterProducts(products, {});
+        expect(result).toEqual(products);
+      });
     });
 
-    describe("when the operator is greater_than", () => {
-      // Propery weight || Value 4
-      it("should return the prodcuts where the property_id is bigger than the provided value", () => {});
+    describe("with equals operator", () => {
+      it("should return the products where the value matches the property", () => {
+        const result = filterProducts(products, {
+          property: properties[0] as Property,
+          operator: operators[0],
+          value: "Headphones",
+        });
 
-      it("should not return products where the property_id is less than the provided value", () => {});
+        expect(result).toEqual([
+          {
+            id: 0,
+            property_values: [
+              {
+                property_id: 0,
+                value: "Headphones",
+              },
+              {
+                property_id: 1,
+                value: "black",
+              },
+              {
+                property_id: 2,
+                value: 5,
+              },
+              {
+                property_id: 3,
+                value: "electronics",
+              },
+              {
+                property_id: 4,
+                value: "false",
+              },
+            ],
+          },
+        ]);
+      });
     });
 
-    describe("when the operator is less_than", () => {
-      // Property weight | Value 4
-      it("should return the prodcuts where the property_id is smaller than the provided value", () => {});
+    describe("with greater_than filter", () => {
+      it("should return the products where the value is bigger than the provided value", () => {
+        const result = filterProducts(products, {
+          property: properties[2] as Property,
+          operator: operators[1],
+          value: "10",
+        });
 
-      it("should not return products where the property_id is bigger than the provided value", () => {});
+        expect(result).toEqual([
+          {
+            id: 5,
+            property_values: [
+              {
+                property_id: 0,
+                value: "Hammer",
+              },
+              {
+                property_id: 1,
+                value: "brown",
+              },
+              {
+                property_id: 2,
+                value: 19,
+              },
+              {
+                property_id: 3,
+                value: "tools",
+              },
+            ],
+          },
+        ]);
+      });
     });
 
-    describe("when the operator is any", () => {
-      // property wireless
-      it("should return products where the property_id is defined or is not null", () => {});
+    describe("with less_than filter", () => {
+      it("returns the products where the property value is less than the provided value", () => {
+        const result = filterProducts(products, {
+          property: properties[2] as Property,
+          operator: operators[2],
+          value: "3",
+        });
 
-      it("should not return products where the property_id is not defined or is not null", () => {});
+        expect(result).toEqual([
+          {
+            id: 4,
+            property_values: [
+              {
+                property_id: 0,
+                value: "Key",
+              },
+              {
+                property_id: 1,
+                value: "silver",
+              },
+              {
+                property_id: 2,
+                value: 1,
+              },
+              {
+                property_id: 3,
+                value: "tools",
+              },
+            ],
+          },
+        ]);
+      });
     });
 
-    describe("when the operator is none", () => {
-      // property wirelesse
-      it("should return prodcuts where the property_id is not defined or is null", () => {});
+    describe("with any filter", () => {
+      it("should return products where the property is defined", () => {
+        const result = filterProducts(products, {
+          property: {
+            id: 4,
+            name: "wireless",
+            type: "enumerated",
+            values: ["true", "false"],
+          },
+          operator: {
+            text: "Has any value",
+            id: "any",
+          },
+        });
 
-      it("should not return products where the property_id is defined or is not null", () => {});
+        expect(result).toEqual([
+          {
+            id: 0,
+            property_values: [
+              {
+                property_id: 0,
+                value: "Headphones",
+              },
+              {
+                property_id: 1,
+                value: "black",
+              },
+              {
+                property_id: 2,
+                value: 5,
+              },
+              {
+                property_id: 3,
+                value: "electronics",
+              },
+              {
+                property_id: 4,
+                value: "false",
+              },
+            ],
+          },
+          {
+            id: 1,
+            property_values: [
+              {
+                property_id: 0,
+                value: "Cell Phone",
+              },
+              {
+                property_id: 1,
+                value: "black",
+              },
+              {
+                property_id: 2,
+                value: 3,
+              },
+              {
+                property_id: 3,
+                value: "electronics",
+              },
+              {
+                property_id: 4,
+                value: "true",
+              },
+            ],
+          },
+          {
+            id: 2,
+            property_values: [
+              {
+                property_id: 0,
+                value: "Keyboard",
+              },
+              {
+                property_id: 1,
+                value: "grey",
+              },
+              {
+                property_id: 2,
+                value: 5,
+              },
+              {
+                property_id: 3,
+                value: "electronics",
+              },
+              {
+                property_id: 4,
+                value: "false",
+              },
+            ],
+          },
+        ]);
+      });
     });
 
-    describe("when the operator is in", () => {
-      // TODO IN THE CODE: WE NEED TO CHECK IF MORE THAN ONE VALUE IS SUBMITTED
+    describe("with none filter", () => {
+      it("should return the products where the given property is not defined", () => {
+        const result = filterProducts(products, {
+          property: {
+            id: 4,
+            name: "wireless",
+            type: "enumerated",
+            values: ["true", "false"],
+          },
+          operator: {
+            text: "Has no value",
+            id: "none",
+          },
+        });
 
-      // property Product Name | Value Headphones and Cup
-      it("should return products here the property_id is exactly one of the provided values", () => {});
+        expect(result).toEqual([
+          {
+            id: 3,
+            property_values: [
+              {
+                property_id: 0,
+                value: "Cup",
+              },
+              {
+                property_id: 1,
+                value: "white",
+              },
+              {
+                property_id: 2,
+                value: 3,
+              },
+              {
+                property_id: 3,
+                value: "kitchenware",
+              },
+            ],
+          },
+          {
+            id: 4,
+            property_values: [
+              {
+                property_id: 0,
+                value: "Key",
+              },
+              {
+                property_id: 1,
+                value: "silver",
+              },
+              {
+                property_id: 2,
+                value: 1,
+              },
+              {
+                property_id: 3,
+                value: "tools",
+              },
+            ],
+          },
+          {
+            id: 5,
+            property_values: [
+              {
+                property_id: 0,
+                value: "Hammer",
+              },
+              {
+                property_id: 1,
+                value: "brown",
+              },
+              {
+                property_id: 2,
+                value: 19,
+              },
+              {
+                property_id: 3,
+                value: "tools",
+              },
+            ],
+          },
+        ]);
+      });
     });
 
-    describe("when the operator is contains", () => {
-      // property Product Name | Value phone
-      it("should return products where the property_id contains the submitted value", () => {});
-      it("should not return products where the property_id does not contain the submitted value", () => {});
+    describe("with in filter", () => {
+      it("should return the products with an exact match of each of the values", () => {
+        const result = filterProducts(products, {
+          property: {
+            id: 0,
+            name: "Product Name",
+            type: "string",
+          },
+          operator: {
+            text: "Is any of",
+            id: "in",
+          },
+          value: "headphones, cup",
+        });
+
+        expect(result).toEqual([
+          {
+            id: 0,
+            property_values: [
+              {
+                property_id: 0,
+                value: "Headphones",
+              },
+              {
+                property_id: 1,
+                value: "black",
+              },
+              {
+                property_id: 2,
+                value: 5,
+              },
+              {
+                property_id: 3,
+                value: "electronics",
+              },
+              {
+                property_id: 4,
+                value: "false",
+              },
+            ],
+          },
+          {
+            id: 3,
+            property_values: [
+              {
+                property_id: 0,
+                value: "Cup",
+              },
+              {
+                property_id: 1,
+                value: "white",
+              },
+              {
+                property_id: 2,
+                value: 3,
+              },
+              {
+                property_id: 3,
+                value: "kitchenware",
+              },
+            ],
+          },
+        ]);
+      });
+    });
+
+    describe("with contains filter", () => {
+      it("should return the products where the property contains the value provided", () => {
+        const result = containsFilter(products, {
+          property: {
+            id: 0,
+            name: "Product Name",
+            type: "string",
+          },
+          operator: {
+            text: "Contains",
+            id: "contains",
+          },
+          value: "phone",
+        });
+
+        expect(result).toEqual([
+          {
+            id: 0,
+            property_values: [
+              {
+                property_id: 0,
+                value: "Headphones",
+              },
+              {
+                property_id: 1,
+                value: "black",
+              },
+              {
+                property_id: 2,
+                value: 5,
+              },
+              {
+                property_id: 3,
+                value: "electronics",
+              },
+              {
+                property_id: 4,
+                value: "false",
+              },
+            ],
+          },
+          {
+            id: 1,
+            property_values: [
+              {
+                property_id: 0,
+                value: "Cell Phone",
+              },
+              {
+                property_id: 1,
+                value: "black",
+              },
+              {
+                property_id: 2,
+                value: 3,
+              },
+              {
+                property_id: 3,
+                value: "electronics",
+              },
+              {
+                property_id: 4,
+                value: "true",
+              },
+            ],
+          },
+        ]);
+      });
     });
   });
 
@@ -224,7 +603,7 @@ describe("FilterProducts", () => {
     it("returns the products where the property value is less than the provided value", () => {
       const result = lessThanFilter(products, {
         property: properties[2] as Property,
-        operator: operators[1],
+        operator: operators[2],
         value: "3",
       });
 
@@ -433,7 +812,23 @@ describe("FilterProducts", () => {
   });
 
   describe(inFilter.name, () => {
-    it("should return the products with an exact match of each of the values", () => {
+    it("should return all the products when no value is provided", () => {
+      const result = inFilter(products, {
+        property: {
+          id: 0,
+          name: "Product Name",
+          type: "string",
+        },
+        operator: {
+          text: "Is any of",
+          id: "in",
+        },
+      });
+
+      expect(result).toEqual(products);
+    });
+
+    it("should return the products with an exact match of each of the values when values are string", () => {
       const result = inFilter(products, {
         property: {
           id: 0,
@@ -496,9 +891,141 @@ describe("FilterProducts", () => {
         },
       ]);
     });
+
+    it("should return the products with an exact match of each of the values when values are numbers", () => {
+      const result = inFilter(products, {
+        property: {
+          id: 2,
+          name: "weight (oz)",
+          type: "number",
+        },
+        operator: {
+          text: "Is any of",
+          id: "in",
+        },
+        value: "5,3",
+      });
+
+      console.log(result);
+
+      expect(result).toEqual([
+        {
+          id: 0,
+          property_values: [
+            {
+              property_id: 0,
+              value: "Headphones",
+            },
+            {
+              property_id: 1,
+              value: "black",
+            },
+            {
+              property_id: 2,
+              value: 5,
+            },
+            {
+              property_id: 3,
+              value: "electronics",
+            },
+            {
+              property_id: 4,
+              value: "false",
+            },
+          ],
+        },
+        {
+          id: 2,
+          property_values: [
+            {
+              property_id: 0,
+              value: "Keyboard",
+            },
+            {
+              property_id: 1,
+              value: "grey",
+            },
+            {
+              property_id: 2,
+              value: 5,
+            },
+            {
+              property_id: 3,
+              value: "electronics",
+            },
+            {
+              property_id: 4,
+              value: "false",
+            },
+          ],
+        },
+        {
+          id: 1,
+          property_values: [
+            {
+              property_id: 0,
+              value: "Cell Phone",
+            },
+            {
+              property_id: 1,
+              value: "black",
+            },
+            {
+              property_id: 2,
+              value: 3,
+            },
+            {
+              property_id: 3,
+              value: "electronics",
+            },
+            {
+              property_id: 4,
+              value: "true",
+            },
+          ],
+        },
+
+        {
+          id: 3,
+          property_values: [
+            {
+              property_id: 0,
+              value: "Cup",
+            },
+            {
+              property_id: 1,
+              value: "white",
+            },
+            {
+              property_id: 2,
+              value: 3,
+            },
+            {
+              property_id: 3,
+              value: "kitchenware",
+            },
+          ],
+        },
+      ]);
+    });
   });
 
   describe(containsFilter.name, () => {
+    it("should return the products when no value is provided", () => {
+      const result = containsFilter(products, {
+        property: {
+          id: 0,
+          name: "Product Name",
+          type: "string",
+        },
+        operator: {
+          text: "Contains",
+          id: "contains",
+        },
+      });
+
+      expect(result).toEqual(products);
+    });
     it("should return the products where the property contains the value provided", () => {
       const result = containsFilter(products, {
         property: {
