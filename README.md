@@ -89,6 +89,7 @@ The code is divided in several parts:
    4. The component renders a different type of input based on the property selected, allowing for a text input or a select to be displayed
 2. `dynamicInput` component:
    1. I decided to extract this logic into a separate component to reduce code complexity in the `search` component and to allow for easier unit tests
+   2. The logic behind the property type can be found in the `utils` file, in the `filterOperators` function
 3. `table` component:
    1. This component renders the provided headers
    2. If there are products to be displayed, the component will render them
