@@ -42,7 +42,7 @@ const Table = ({ headers, rows }: TableProps) => {
               className="text-center text-md px-6 py-4"
               colSpan={headers.length}
             >
-              No results found
+              No results found! Please try another search combination.
             </td>
           </tr>
         )}

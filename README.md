@@ -17,6 +17,7 @@
   - [Run the Project](#run-the-project)
     - [Run locally](#run-locally)
     - [Run tests](#run-tests)
+      - [Output:](#output)
 
 # Decisions
 
@@ -117,3 +118,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ```bash
 yarn test
 ```
+
+#### Output:
+
+![Tests output](./unit_tests.png)
