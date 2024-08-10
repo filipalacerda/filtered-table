@@ -6,6 +6,7 @@ import {
   greaterThanFilter,
   lessThanFilter,
   anyFilter,
+  noneFilter,
 } from "./filterProducts";
 
 import datastore from "../data/data";
@@ -304,6 +305,89 @@ describe("FilterProducts", () => {
             {
               property_id: 4,
               value: "false",
+            },
+          ],
+        },
+      ]);
+    });
+  });
+
+  describe(noneFilter.name, () => {
+    it("should return the products where the given property is not defined", () => {
+      const result = noneFilter(products, {
+        property: {
+          id: 4,
+          name: "wireless",
+          type: "enumerated",
+          values: ["true", "false"],
+        },
+        operator: {
+          text: "Has no value",
+          id: "none",
+        },
+      });
+
+      expect(result).toEqual([
+        {
+          id: 3,
+          property_values: [
+            {
+              property_id: 0,
+              value: "Cup",
+            },
+            {
+              property_id: 1,
+              value: "white",
+            },
+            {
+              property_id: 2,
+              value: 3,
+            },
+            {
+              property_id: 3,
+              value: "kitchenware",
+            },
+          ],
+        },
+        {
+          id: 4,
+          property_values: [
+            {
+              property_id: 0,
+              value: "Key",
+            },
+            {
+              property_id: 1,
+              value: "silver",
+            },
+            {
+              property_id: 2,
+              value: 1,
+            },
+            {
+              property_id: 3,
+              value: "tools",
+            },
+          ],
+        },
+        {
+          id: 5,
+          property_values: [
+            {
+              property_id: 0,
+              value: "Hammer",
+            },
+            {
+              property_id: 1,
+              value: "brown",
+            },
+            {
+              property_id: 2,
+              value: 19,
+            },
+            {
+              property_id: 3,
+              value: "tools",
             },
           ],
         },
