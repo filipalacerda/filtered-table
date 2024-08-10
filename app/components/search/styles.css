@@ -8,6 +8,14 @@
   padding: 2.5rem 1rem;
 }
 
+@media (max-width: 768px) {
+  .search-form,
+  .fields-container {
+    flex-direction: column;
+    width: auto;
+  }
+}
+
 .fields-container {
   display: flex;
   gap: 1rem;

@@ -5,14 +5,12 @@
   text-align: left;
   min-width: 100%;
   text-indent: 0;
-  border-color: inherit;
   border-collapse: collapse;
 }
 
 .table-header {
   font-weight: 500;
-  border-color: #e5e5e5;
-  border-bottom-width: 1px;
+  border-bottom: 1px solid #e5e5e5;
 }
 
 .header-cell {
@@ -20,8 +18,7 @@
 }
 
 .table-row {
-  border-bottom-width: 1px;
-  border-color: #e5e5e5;
+  border-bottom: 1px solid #e5e5e5;
 }
 
 .cell {

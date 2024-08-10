@@ -180,7 +180,7 @@ const Search = ({ categories, operators, onClear, onChange }: SearchProps) => {
           </fieldset>
         )}
       </div>
-      <div className="flex">
+      <div>
         <button type="button" onClick={handleOnClear} className="clear-button">
           Clear
         </button>
