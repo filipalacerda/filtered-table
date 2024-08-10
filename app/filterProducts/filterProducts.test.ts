@@ -399,7 +399,7 @@ describe("FilterProducts", () => {
 
     describe("with contains filter", () => {
       it("should return the products where the property contains the value provided", () => {
-        const result = containsFilter(products, {
+        const result = filterProducts(products, {
           property: {
             id: 0,
             name: "Product Name",
@@ -464,6 +464,17 @@ describe("FilterProducts", () => {
             ],
           },
         ]);
+      });
+    });
+
+    describe("when no operator is provided", () => {
+      it("returns the products", () => {
+        const result = filterProducts(products, {
+          property: properties[0] as Property,
+          value: "",
+        });
+
+        expect(result).toEqual(products);
       });
     });
   });
@@ -905,8 +916,6 @@ describe("FilterProducts", () => {
         },
         value: "5,3",
       });
-
-      console.log(result);
 
       expect(result).toEqual([
         {
