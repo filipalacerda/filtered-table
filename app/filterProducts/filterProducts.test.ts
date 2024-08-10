@@ -8,6 +8,7 @@ import {
   anyFilter,
   noneFilter,
   inFilter,
+  containsFilter,
 } from "./filterProducts";
 
 import datastore from "../data/data";
@@ -455,6 +456,76 @@ describe("FilterProducts", () => {
             {
               property_id: 3,
               value: "kitchenware",
+            },
+          ],
+        },
+      ]);
+    });
+  });
+
+  describe(containsFilter.name, () => {
+    it("should return the products where the property contains the value provided", () => {
+      const result = containsFilter(products, {
+        property: {
+          id: 0,
+          name: "Product Name",
+          type: "string",
+        },
+        operator: {
+          text: "Contains",
+          id: "contains",
+        },
+        value: "phone",
+      });
+
+      expect(result).toEqual([
+        {
+          id: 0,
+          property_values: [
+            {
+              property_id: 0,
+              value: "Headphones",
+            },
+            {
+              property_id: 1,
+              value: "black",
+            },
+            {
+              property_id: 2,
+              value: 5,
+            },
+            {
+              property_id: 3,
+              value: "electronics",
+            },
+            {
+              property_id: 4,
+              value: "false",
+            },
+          ],
+        },
+        {
+          id: 1,
+          property_values: [
+            {
+              property_id: 0,
+              value: "Cell Phone",
+            },
+            {
+              property_id: 1,
+              value: "black",
+            },
+            {
+              property_id: 2,
+              value: 3,
+            },
+            {
+              property_id: 3,
+              value: "electronics",
+            },
+            {
+              property_id: 4,
+              value: "true",
             },
           ],
         },

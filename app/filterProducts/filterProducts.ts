@@ -306,4 +306,5 @@ export {
   anyFilter,
   noneFilter,
   inFilter,
+  containsFilter,
 };
