@@ -101,6 +101,10 @@ The code is divided in several parts:
 
 ## Run the Project
 
+You can see the result here: [https://filipalacerda.github.io/filtered-table/](https://filipalacerda.github.io/filtered-table/)
+
+If you want to run the project locally, follow the instructions below:
+
 ### Run locally
 
 ```bash
