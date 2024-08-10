@@ -3,29 +3,29 @@
 exports[`Home when component renders should match snapshot 1`] = `
 <div>
   <main
-    class="flex min-h-screen flex-col gap-10 w-full p-24"
+    class="app"
   >
     <section
-      class="flex flex-row justify-between"
+      class="search-container"
     >
       <form
-        class="flex w-full border border-sky-900 py-10 px-4 justify-between rounded-sm gap-4"
+        class="search-form"
       >
         <div
-          class="flex gap-10"
+          class="fields-container"
         >
           <fieldset
-            class="flex gap-2 items-center"
+            class="fieldset"
           >
             <label
-              class="font-light"
+              class="label"
               for="category"
             >
               Category:
             </label>
             <select
               aria-required="true"
-              class="border p-2 border-gray-400 rounded-sm text-sm focus:border-blue-500 focus:ring-blue-500"
+              class="input"
               data-testid="category-select"
               id="category"
               name="category"
@@ -69,11 +69,9 @@ exports[`Home when component renders should match snapshot 1`] = `
             </select>
           </fieldset>
         </div>
-        <div
-          class="flex"
-        >
+        <div>
           <button
-            class="bg-blue-700 hover:bg-blue-900 text-white text-sm py-2 px-4 rounded"
+            class="clear-button"
             type="button"
           >
             Clear
@@ -82,41 +80,41 @@ exports[`Home when component renders should match snapshot 1`] = `
       </form>
     </section>
     <section
-      class="w-full"
+      class="table-container"
     >
       <table
-        class="min-w-full text-left text-sm font-light text-surface"
+        class="table"
       >
         <thead
-          class="border-b border-neutral-200 font-medium"
+          class="table-header"
         >
           <tr>
             <th
-              class="px-6 py-4"
+              class="header-cell"
               scope="col"
             >
               Product Name
             </th>
             <th
-              class="px-6 py-4"
+              class="header-cell"
               scope="col"
             >
               color
             </th>
             <th
-              class="px-6 py-4"
+              class="header-cell"
               scope="col"
             >
               weight (oz)
             </th>
             <th
-              class="px-6 py-4"
+              class="header-cell"
               scope="col"
             >
               category
             </th>
             <th
-              class="px-6 py-4"
+              class="header-cell"
               scope="col"
             >
               wireless
@@ -125,160 +123,160 @@ exports[`Home when component renders should match snapshot 1`] = `
         </thead>
         <tbody>
           <tr
-            class="border-b border-neutral-200"
+            class="table-row"
           >
             <td
-              class="whitespace-nowrap px-6 py-4"
+              class="cell"
             >
               Headphones
             </td>
             <td
-              class="whitespace-nowrap px-6 py-4"
+              class="cell"
             >
               black
             </td>
             <td
-              class="whitespace-nowrap px-6 py-4"
+              class="cell"
             >
               5
             </td>
             <td
-              class="whitespace-nowrap px-6 py-4"
+              class="cell"
             >
               electronics
             </td>
             <td
-              class="whitespace-nowrap px-6 py-4"
+              class="cell"
             >
               false
             </td>
           </tr>
           <tr
-            class="border-b border-neutral-200"
+            class="table-row"
           >
             <td
-              class="whitespace-nowrap px-6 py-4"
+              class="cell"
             >
               Cell Phone
             </td>
             <td
-              class="whitespace-nowrap px-6 py-4"
+              class="cell"
             >
               black
             </td>
             <td
-              class="whitespace-nowrap px-6 py-4"
+              class="cell"
             >
               3
             </td>
             <td
-              class="whitespace-nowrap px-6 py-4"
+              class="cell"
             >
               electronics
             </td>
             <td
-              class="whitespace-nowrap px-6 py-4"
+              class="cell"
             >
               true
             </td>
           </tr>
           <tr
-            class="border-b border-neutral-200"
+            class="table-row"
           >
             <td
-              class="whitespace-nowrap px-6 py-4"
+              class="cell"
             >
               Keyboard
             </td>
             <td
-              class="whitespace-nowrap px-6 py-4"
+              class="cell"
             >
               grey
             </td>
             <td
-              class="whitespace-nowrap px-6 py-4"
+              class="cell"
             >
               5
             </td>
             <td
-              class="whitespace-nowrap px-6 py-4"
+              class="cell"
             >
               electronics
             </td>
             <td
-              class="whitespace-nowrap px-6 py-4"
+              class="cell"
             >
               false
             </td>
           </tr>
           <tr
-            class="border-b border-neutral-200"
+            class="table-row"
           >
             <td
-              class="whitespace-nowrap px-6 py-4"
+              class="cell"
             >
               Cup
             </td>
             <td
-              class="whitespace-nowrap px-6 py-4"
+              class="cell"
             >
               white
             </td>
             <td
-              class="whitespace-nowrap px-6 py-4"
+              class="cell"
             >
               3
             </td>
             <td
-              class="whitespace-nowrap px-6 py-4"
+              class="cell"
             >
               kitchenware
             </td>
           </tr>
           <tr
-            class="border-b border-neutral-200"
+            class="table-row"
           >
             <td
-              class="whitespace-nowrap px-6 py-4"
+              class="cell"
             >
               Key
             </td>
             <td
-              class="whitespace-nowrap px-6 py-4"
+              class="cell"
             >
               silver
             </td>
             <td
-              class="whitespace-nowrap px-6 py-4"
+              class="cell"
             >
               1
             </td>
             <td
-              class="whitespace-nowrap px-6 py-4"
+              class="cell"
             >
               tools
             </td>
           </tr>
           <tr
-            class="border-b border-neutral-200"
+            class="table-row"
           >
             <td
-              class="whitespace-nowrap px-6 py-4"
+              class="cell"
             >
               Hammer
             </td>
             <td
-              class="whitespace-nowrap px-6 py-4"
+              class="cell"
             >
               brown
             </td>
             <td
-              class="whitespace-nowrap px-6 py-4"
+              class="cell"
             >
               19
             </td>
             <td
-              class="whitespace-nowrap px-6 py-4"
+              class="cell"
             >
               tools
             </td>
