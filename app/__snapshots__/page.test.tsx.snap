@@ -1,0 +1,291 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home when component renders should match snapshot 1`] = `
+<div>
+  <main
+    class="flex min-h-screen flex-col gap-10 w-full p-24"
+  >
+    <section
+      class="flex flex-row justify-between"
+    >
+      <form
+        class="flex w-full border border-sky-900 py-10 px-4 justify-between rounded-sm gap-4"
+      >
+        <div
+          class="flex gap-10"
+        >
+          <fieldset
+            class="flex gap-2 items-center"
+          >
+            <label
+              class="font-light"
+              for="category"
+            >
+              Category:
+            </label>
+            <select
+              aria-required="true"
+              class="border p-2 border-gray-400 rounded-sm text-sm focus:border-blue-500 focus:ring-blue-500"
+              data-testid="category-select"
+              id="category"
+              name="category"
+              required=""
+            >
+              <option
+                value="-1"
+              >
+                Choose Category
+              </option>
+              <option
+                class="bg-white"
+                value="0"
+              >
+                Product Name
+              </option>
+              <option
+                class="bg-white"
+                value="1"
+              >
+                color
+              </option>
+              <option
+                class="bg-white"
+                value="2"
+              >
+                weight (oz)
+              </option>
+              <option
+                class="bg-white"
+                value="3"
+              >
+                category
+              </option>
+              <option
+                class="bg-white"
+                value="4"
+              >
+                wireless
+              </option>
+            </select>
+          </fieldset>
+        </div>
+        <div
+          class="flex"
+        >
+          <button
+            class="bg-blue-700 hover:bg-blue-900 text-white text-sm py-2 px-4 rounded"
+            type="button"
+          >
+            Clear
+          </button>
+        </div>
+      </form>
+    </section>
+    <section
+      class="w-full"
+    >
+      <table
+        class="min-w-full text-left text-sm font-light text-surface"
+      >
+        <thead
+          class="border-b border-neutral-200 font-medium"
+        >
+          <tr>
+            <th
+              class="px-6 py-4"
+              scope="col"
+            >
+              Product Name
+            </th>
+            <th
+              class="px-6 py-4"
+              scope="col"
+            >
+              color
+            </th>
+            <th
+              class="px-6 py-4"
+              scope="col"
+            >
+              weight (oz)
+            </th>
+            <th
+              class="px-6 py-4"
+              scope="col"
+            >
+              category
+            </th>
+            <th
+              class="px-6 py-4"
+              scope="col"
+            >
+              wireless
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            class="border-b border-neutral-200"
+          >
+            <td
+              class="whitespace-nowrap px-6 py-4"
+            >
+              Headphones
+            </td>
+            <td
+              class="whitespace-nowrap px-6 py-4"
+            >
+              black
+            </td>
+            <td
+              class="whitespace-nowrap px-6 py-4"
+            >
+              5
+            </td>
+            <td
+              class="whitespace-nowrap px-6 py-4"
+            >
+              electronics
+            </td>
+            <td
+              class="whitespace-nowrap px-6 py-4"
+            >
+              false
+            </td>
+          </tr>
+          <tr
+            class="border-b border-neutral-200"
+          >
+            <td
+              class="whitespace-nowrap px-6 py-4"
+            >
+              Cell Phone
+            </td>
+            <td
+              class="whitespace-nowrap px-6 py-4"
+            >
+              black
+            </td>
+            <td
+              class="whitespace-nowrap px-6 py-4"
+            >
+              3
+            </td>
+            <td
+              class="whitespace-nowrap px-6 py-4"
+            >
+              electronics
+            </td>
+            <td
+              class="whitespace-nowrap px-6 py-4"
+            >
+              true
+            </td>
+          </tr>
+          <tr
+            class="border-b border-neutral-200"
+          >
+            <td
+              class="whitespace-nowrap px-6 py-4"
+            >
+              Keyboard
+            </td>
+            <td
+              class="whitespace-nowrap px-6 py-4"
+            >
+              grey
+            </td>
+            <td
+              class="whitespace-nowrap px-6 py-4"
+            >
+              5
+            </td>
+            <td
+              class="whitespace-nowrap px-6 py-4"
+            >
+              electronics
+            </td>
+            <td
+              class="whitespace-nowrap px-6 py-4"
+            >
+              false
+            </td>
+          </tr>
+          <tr
+            class="border-b border-neutral-200"
+          >
+            <td
+              class="whitespace-nowrap px-6 py-4"
+            >
+              Cup
+            </td>
+            <td
+              class="whitespace-nowrap px-6 py-4"
+            >
+              white
+            </td>
+            <td
+              class="whitespace-nowrap px-6 py-4"
+            >
+              3
+            </td>
+            <td
+              class="whitespace-nowrap px-6 py-4"
+            >
+              kitchenware
+            </td>
+          </tr>
+          <tr
+            class="border-b border-neutral-200"
+          >
+            <td
+              class="whitespace-nowrap px-6 py-4"
+            >
+              Key
+            </td>
+            <td
+              class="whitespace-nowrap px-6 py-4"
+            >
+              silver
+            </td>
+            <td
+              class="whitespace-nowrap px-6 py-4"
+            >
+              1
+            </td>
+            <td
+              class="whitespace-nowrap px-6 py-4"
+            >
+              tools
+            </td>
+          </tr>
+          <tr
+            class="border-b border-neutral-200"
+          >
+            <td
+              class="whitespace-nowrap px-6 py-4"
+            >
+              Hammer
+            </td>
+            <td
+              class="whitespace-nowrap px-6 py-4"
+            >
+              brown
+            </td>
+            <td
+              class="whitespace-nowrap px-6 py-4"
+            >
+              19
+            </td>
+            <td
+              class="whitespace-nowrap px-6 py-4"
+            >
+              tools
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</div>
+`;
