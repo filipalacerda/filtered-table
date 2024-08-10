@@ -3,15 +3,18 @@ import { Filters, Products } from "../types/types";
 /**
  * The value the user inputs could be all in uppercase.
  * Also, one of the products properties is capitalized
- * we want to make sure we are comparing the same string
+ * we want to make sure we are comparing the same string.
+ *
+ * We also need to trim the whitespaces that the user
+ * may enter on the search field
  * @param value
  * @returns
  */
 const normalizeValueToString = (value: string | number) => {
   if (typeof value === "string") {
-    return value.toLowerCase();
+    return value.toLowerCase().trim();
   } else if (typeof value === "number") {
-    return value.toString();
+    return value.toString().trim();
   }
   return value;
 };
@@ -193,10 +196,15 @@ const noneFilter = (products: Products, filters: Filters) => {
 const inFilter = (products: Products, filters: Filters) => {
   const propertyId = filters.property?.id;
   const propertyType = filters.property?.type;
-  const filterValues = filters.value ? filters.value?.split(", ") : [];
+  const filterValues = filters.value ? filters.value?.split(",") : [];
 
   let i: number;
   const result: Products = [];
+
+  // If the input has no value, returns the products
+  if (!filterValues.length) {
+    return products;
+  }
 
   for (i = 0; i <= filterValues?.length; i++) {
     const filterValue = filterValues[i];
@@ -296,4 +304,5 @@ export {
   greaterThanFilter,
   lessThanFilter,
   anyFilter,
+  noneFilter,
 };

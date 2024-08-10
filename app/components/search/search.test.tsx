@@ -63,7 +63,7 @@ describe(Search.name, () => {
     });
 
     it("should render the value input", () => {
-      expect(screen.getByTestId("string-field")).toBeInTheDocument();
+      expect(screen.getByTestId("text-field")).toBeInTheDocument();
     });
 
     it("should call onChange callback with the selected value", () => {
@@ -120,7 +120,7 @@ describe(Search.name, () => {
 
       await userEvent.selectOptions(operatorsField, "equals");
 
-      const inputField = screen.getByTestId("string-field");
+      const inputField = screen.getByTestId("text-field");
 
       await userEvent.type(inputField, "value");
 
@@ -156,7 +156,7 @@ describe(Search.name, () => {
 
       // These fields are only visble after the categories value is changed
       operatorsField = screen.queryByTestId("operator-select");
-      valueField = screen.queryByTestId("string-field");
+      valueField = screen.queryByTestId("text-field");
       // Change operator
       await userEvent.click(operatorsField as HTMLElement);
       await userEvent.selectOptions(operatorsField as HTMLElement, "equals");

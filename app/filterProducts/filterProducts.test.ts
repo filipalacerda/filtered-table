@@ -16,6 +16,23 @@ describe("FilterProducts", () => {
   const properties = datastore.getProperties();
   const operators = datastore.getOperators();
 
+  describe(normalizeValueToNumber.name, () => {
+    it("return a number when provided value is a string", () => {
+      expect(normalizeValueToNumber("5")).toEqual(5);
+    });
+  });
+
+  describe(normalizeValueToString.name, () => {
+    it("returns a lower case string", () => {
+      expect(normalizeValueToString("Headphones")).toEqual("headphones");
+      expect(normalizeValueToString(5)).toEqual("5");
+    });
+
+    it("trims the whitespaces", () => {
+      expect(normalizeValueToString(" cup")).toEqual("cup");
+    });
+  });
+
   describe(filterProducts.name, () => {
     describe("when operator is equals", () => {
       // Property Product Name | Value Headphones
@@ -63,19 +80,6 @@ describe("FilterProducts", () => {
       // property Product Name | Value phone
       it("should return products where the property_id contains the submitted value", () => {});
       it("should not return products where the property_id does not contain the submitted value", () => {});
-    });
-  });
-
-  describe(normalizeValueToNumber.name, () => {
-    it("return a number when provided value is a string", () => {
-      expect(normalizeValueToNumber("5")).toEqual(5);
-    });
-  });
-
-  describe(normalizeValueToString.name, () => {
-    it("returns a lower case string", () => {
-      expect(normalizeValueToString("Headphones")).toEqual("headphones");
-      expect(normalizeValueToString(5)).toEqual("5");
     });
   });
 
@@ -212,5 +216,98 @@ describe("FilterProducts", () => {
     });
   });
 
-  describe(anyFilter.name, () => {});
+  describe(anyFilter.name, () => {
+    it("should return products where the property is defined", () => {
+      const result = anyFilter(products, {
+        property: {
+          id: 4,
+          name: "wireless",
+          type: "enumerated",
+          values: ["true", "false"],
+        },
+        operator: {
+          text: "Has any value",
+          id: "any",
+        },
+      });
+
+      expect(result).toEqual([
+        {
+          id: 0,
+          property_values: [
+            {
+              property_id: 0,
+              value: "Headphones",
+            },
+            {
+              property_id: 1,
+              value: "black",
+            },
+            {
+              property_id: 2,
+              value: 5,
+            },
+            {
+              property_id: 3,
+              value: "electronics",
+            },
+            {
+              property_id: 4,
+              value: "false",
+            },
+          ],
+        },
+        {
+          id: 1,
+          property_values: [
+            {
+              property_id: 0,
+              value: "Cell Phone",
+            },
+            {
+              property_id: 1,
+              value: "black",
+            },
+            {
+              property_id: 2,
+              value: 3,
+            },
+            {
+              property_id: 3,
+              value: "electronics",
+            },
+            {
+              property_id: 4,
+              value: "true",
+            },
+          ],
+        },
+        {
+          id: 2,
+          property_values: [
+            {
+              property_id: 0,
+              value: "Keyboard",
+            },
+            {
+              property_id: 1,
+              value: "grey",
+            },
+            {
+              property_id: 2,
+              value: 5,
+            },
+            {
+              property_id: 3,
+              value: "electronics",
+            },
+            {
+              property_id: 4,
+              value: "false",
+            },
+          ],
+        },
+      ]);
+    });
+  });
 });

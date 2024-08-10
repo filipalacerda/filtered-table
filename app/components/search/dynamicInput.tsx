@@ -26,17 +26,10 @@ const DynamicInput = ({ type, values, handleChange }: DynamicInputProps) => {
     handleChange(e.target.value);
   };
 
-  return type === "string" ? (
+  return type === "string" || type === "number" ? (
     <input
-      data-testid="string-field"
+      data-testid="text-field"
       type="text"
-      onChange={onChange}
-      className="border border-gray-400 rounded-sm font-light text-sm p-2"
-    />
-  ) : type === "number" ? (
-    <input
-      data-testid="number-field"
-      type="number"
       onChange={onChange}
       className="border border-gray-400 rounded-sm font-light text-sm p-2"
     />

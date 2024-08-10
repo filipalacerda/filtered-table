@@ -26,13 +26,13 @@ describe(DynamicInput.name, () => {
     });
 
     it("should render a input with type text", () => {
-      expect(screen.getByTestId("string-field").getAttribute("type")).toEqual(
+      expect(screen.getByTestId("text-field").getAttribute("type")).toEqual(
         "text"
       );
     });
 
     it("should call handleChange when the user types a value", async () => {
-      const input = screen.getByTestId("string-field");
+      const input = screen.getByTestId("text-field");
       await userEvent.type(input, "A");
 
       expect(onChange).toHaveBeenCalledWith("A");
@@ -44,14 +44,14 @@ describe(DynamicInput.name, () => {
       render(<DynamicInput type="number" handleChange={onChange} />);
     });
 
-    it("should render a input with type number", () => {
-      expect(screen.getByTestId("number-field").getAttribute("type")).toEqual(
-        "number"
+    it("should render a input with type text", () => {
+      expect(screen.getByTestId("text-field").getAttribute("type")).toEqual(
+        "text"
       );
     });
 
     it("should call handleChange when the user types a value", async () => {
-      const input = screen.getByTestId("number-field");
+      const input = screen.getByTestId("text-field");
       await userEvent.type(input, "50");
 
       expect(onChange).toHaveBeenCalledWith("50");

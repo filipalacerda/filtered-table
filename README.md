@@ -10,6 +10,7 @@
       - [`contains`, `less_than`, `greater_than`, `equals`](#contains-less_than-greater_than-equals)
       - [`none` filter](#none-filter)
       - [`value` field of the search](#value-field-of-the-search)
+      - [Filtered results](#filtered-results)
   - [Code Strucutre](#code-strucutre)
     - [Components](#components)
   - [Future improvements](#future-improvements)
@@ -18,6 +19,11 @@
     - [Run tests](#run-tests)
 
 # Decisions
+
+Below you can find the reason behind all the decisions I've made.
+I've taken in consideration the spec of the exercise, but there were
+some decision I had to make. Either because I wasn't 100% sure of the specs (like the [`none` filter](#none-filter)) or because I wanted
+to improve the user's experience (like the [`input` type decision](#value-field-of-the-search))
 
 ## Technical Stack Decision
 
@@ -57,8 +63,14 @@ The decision was made in order to focus on the JavaScript side and unit tests in
 #### `value` field of the search
 
 1. I assumed the `[property value]` field to be render must match the property type.
-2. This means if the property type is a number, the input will have a type number.
-3. For the `in` search, this means the user won't be able to type more than one number
+2. In the begining, as you can see from commit history, I created an input with type `number` for this case
+3. However, for the `in` filter, this meant the user wouldn't be able to type more than one number
+4. So I decided to implement a `text` input instead.
+
+#### Filtered results
+
+1. For some `operators` type, I check that a `value` is provided before perfoming the search action.
+2. The reason behind this, is to allow the user to still see all the products before starting to type a value.
 
 ## Code Strucutre
 
@@ -68,14 +80,21 @@ The code is divided in several parts:
 - `components`: The components used to render the application. Ideally they would be reusable components without any logic associated, but due to the specificity of the application I decided to keep some logic within the components.
 - `types`: A file with all the common types
 - `unit tests`: Unit tests can be found in the components folder, or in the root folder for the main page of the application.
+- `filterProducts`: Where the filters are being performed, according to the `property`, the `operator` and the `value`
 
 ### Components
 
 1. `search` component:
    1. This component is not meant to be reusable, since it's tied with the data formats of the properties and operators.
-   2. Initially, I implemented a solution where the filters would only be applied if the a search button was clicked. But I then understood that this was not the requirements.
-   3. The component filters the operators available based on the property selected
-   4. The component renders a different type of input based on the property selected, allowing for a number, a string or a list to be displayed
+   2. Initially, I implemented a solution where the filters would only be applied if the a search button was clicked. But I then understood that this was not the requirement.
+   3. The component filters the operators available based on the property selected.
+   4. The component renders a different type of input based on the property selected, allowing for a text input or a select to be displayed
+2. `dynamicInput` component:
+   1. I decided to extract this logic into a separate component to reduce code complexity in the `search` component and to allow for easier unit tests
+3. `table` component:
+   1. This component renders the provided headers
+   2. If there are products to be displayed, the component will render them
+   3. Otherwise, the component renders a row displaying the informational text saying that there are no results to show.
 
 ## Future improvements
 
