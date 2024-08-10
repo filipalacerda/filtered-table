@@ -25,7 +25,7 @@ const normalizeValueToString = (value: string | number) => {
  * @param value
  * @returns
  */
-const normalizeValueToNumber = (value: string | number) => {
+const normalizeValueToNumber = (value?: string | number) => {
   if (typeof value === "string") {
     return parseInt(value);
   }
@@ -79,7 +79,7 @@ const equalFilter = (products: Products, filters: Filters) => {
 /**
  * greater_than operator is only used for number properties.
  *
- * We need to parseInt the value input by the user
+ * We need to normalize the value input by the user
  * and compare with the property_id value
  *
  * @param products
@@ -88,7 +88,7 @@ const equalFilter = (products: Products, filters: Filters) => {
  */
 const greaterThanFilter = (products: Products, filters: Filters) => {
   const propertyId = filters.property?.id;
-  const filterValue = parseInt(filters.value as string);
+  const filterValue = normalizeValueToNumber(filters.value);
   // Only filters after the user types in a value
   if (!filterValue) {
     return products;
@@ -110,7 +110,7 @@ const greaterThanFilter = (products: Products, filters: Filters) => {
 /**
  * less_than operator is only used for number properties.
  *
- * We need to parseInt the value input by the user
+ * We need to normalize the value input by the user
  * and compare with the property_id value
  *
  * @param products
@@ -119,7 +119,7 @@ const greaterThanFilter = (products: Products, filters: Filters) => {
  */
 const lessThanFilter = (products: Products, filters: Filters) => {
   const propertyId = filters.property?.id;
-  const filterValue = parseInt(filters.value as string);
+  const filterValue = normalizeValueToNumber(filters.value);
   // Only filters after the user types in a value
   if (!filterValue) {
     return products;
