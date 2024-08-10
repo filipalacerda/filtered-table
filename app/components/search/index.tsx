@@ -1,10 +1,12 @@
 "use client";
 
-import { ChangeEvent, FormEvent, useMemo, useState } from "react";
+import { ChangeEvent, useMemo, useState } from "react";
 import type { Operator, Property, Filters } from "../../types/types";
 
 import DynamicInput from "./dynamicInput";
 import { filterOperators } from "./utils";
+
+import "./styles.css";
 
 type SearchProps = {
   categories: Property[];
@@ -112,10 +114,10 @@ const Search = ({ categories, operators, onClear, onChange }: SearchProps) => {
   };
 
   return (
-    <form className="flex w-full border border-sky-900 py-10 px-4 justify-between rounded-sm gap-4">
-      <div className="flex gap-10">
-        <fieldset className="flex gap-2 items-center">
-          <label htmlFor="category" className="font-light">
+    <form className="search-form">
+      <div className="fields-container">
+        <fieldset className="fieldset">
+          <label htmlFor="category" className="label">
             Category:
           </label>
           <select
@@ -125,7 +127,7 @@ const Search = ({ categories, operators, onClear, onChange }: SearchProps) => {
             name="category"
             id="category"
             onChange={handleCategoryChange}
-            className="border p-2 border-gray-400 rounded-sm text-sm focus:border-blue-500 focus:ring-blue-500"
+            className="input"
             value={currentCategoryProperty?.id}
           >
             <option value="-1">Choose Category</option>
@@ -141,8 +143,8 @@ const Search = ({ categories, operators, onClear, onChange }: SearchProps) => {
           </select>
         </fieldset>
         {visibleOperators.length > 0 && (
-          <fieldset className="flex gap-2 items-center">
-            <label htmlFor="operator" className="font-light">
+          <fieldset className="fieldset">
+            <label htmlFor="operator" className="label">
               Operator:
             </label>
             <select
@@ -152,7 +154,7 @@ const Search = ({ categories, operators, onClear, onChange }: SearchProps) => {
               name="operator"
               id="operator"
               onChange={handleOperatorChange}
-              className="border p-2 border-gray-400 rounded-sm text-sm focus:border-blue-500 focus:ring-blue-500"
+              className="input"
               value={currentOperator?.id}
             >
               <option value="empty">Choose Operator</option>
@@ -165,8 +167,8 @@ const Search = ({ categories, operators, onClear, onChange }: SearchProps) => {
           </fieldset>
         )}
         {currentCategoryProperty && currentCategoryProperty.id !== -1 && (
-          <fieldset className="flex gap-2 items-center">
-            <label htmlFor="value" className="font-light">
+          <fieldset className="fieldset">
+            <label htmlFor="value" className="label">
               Value:
             </label>
             <DynamicInput
@@ -179,11 +181,7 @@ const Search = ({ categories, operators, onClear, onChange }: SearchProps) => {
         )}
       </div>
       <div className="flex">
-        <button
-          type="button"
-          onClick={handleOnClear}
-          className="bg-blue-700 hover:bg-blue-900 text-white text-sm py-2 px-4 rounded"
-        >
+        <button type="button" onClick={handleOnClear} className="clear-button">
           Clear
         </button>
       </div>
