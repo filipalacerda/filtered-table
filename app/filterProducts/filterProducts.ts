@@ -305,4 +305,5 @@ export {
   lessThanFilter,
   anyFilter,
   noneFilter,
+  inFilter,
 };
