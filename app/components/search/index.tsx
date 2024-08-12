@@ -121,7 +121,6 @@ const Search = ({ categories, operators, onClear, onChange }: SearchProps) => {
     currentOperator?.id !== "none" &&
     currentOperator?.id !== "any";
 
-  console.log(isDynamicInputVisible);
   return (
     <form className="search-form">
       <div className="fields-container">
