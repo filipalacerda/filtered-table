@@ -145,7 +145,7 @@ describe(Search.name, () => {
       it("should not render the value input", async () => {
         await userEvent.selectOptions(operatorsField, "none");
 
-        expect(screen.queryByTestId("text-field")).not.toBeInTheDocument();
+        expect(screen.queryByTestId("value-input")).not.toBeInTheDocument();
       });
     });
 
@@ -153,7 +153,7 @@ describe(Search.name, () => {
       it("should not render the value input", async () => {
         await userEvent.selectOptions(operatorsField, "any");
 
-        expect(screen.queryByTestId("text-field")).not.toBeInTheDocument();
+        expect(screen.queryByTestId("value-input")).not.toBeInTheDocument();
       });
     });
   });
