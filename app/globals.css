@@ -1,3 +1,14 @@
+/*
+* Reset Styles
+*/
+fieldset {
+  border: none;
+}
+
+button {
+  border: none;
+}
+
 .app {
   display: flex;
   padding: 6rem;
@@ -26,12 +37,4 @@
 
 .table-container {
   width: 100%;
-}
-
-fieldset {
-  border: none;
-}
-
-button {
-  border: none;
 }

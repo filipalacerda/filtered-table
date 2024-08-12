@@ -4,6 +4,7 @@ import Table from "./index";
 
 import datastore from "../../data/data";
 import { Property } from "@/app/types/types";
+import { capitalizeName } from "@/app/utils";
 
 describe(Table.name, () => {
   const headers = datastore.getProperties();
@@ -24,11 +25,21 @@ describe(Table.name, () => {
     it("should render all the provided headers", () => {
       render(<Table headers={headers as Property[]} rows={rows} />);
 
-      expect(screen.getByText(headers[0].name)).toBeInTheDocument();
-      expect(screen.getByText(headers[1].name)).toBeInTheDocument();
-      expect(screen.getByText(headers[2].name)).toBeInTheDocument();
-      expect(screen.getByText(headers[3].name)).toBeInTheDocument();
-      expect(screen.getByText(headers[4].name)).toBeInTheDocument();
+      expect(
+        screen.getByText(capitalizeName(headers[0].name))
+      ).toBeInTheDocument();
+      expect(
+        screen.getByText(capitalizeName(headers[1].name))
+      ).toBeInTheDocument();
+      expect(
+        screen.getByText(capitalizeName(headers[2].name))
+      ).toBeInTheDocument();
+      expect(
+        screen.getByText(capitalizeName(headers[3].name))
+      ).toBeInTheDocument();
+      expect(
+        screen.getByText(capitalizeName(headers[4].name))
+      ).toBeInTheDocument();
     });
   });
 

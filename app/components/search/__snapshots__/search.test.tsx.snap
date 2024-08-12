@@ -3,23 +3,23 @@
 exports[`Search when component renders should match snapshot 1`] = `
 <div>
   <form
-    class="flex w-full border border-sky-900 py-10 px-4 justify-between rounded-sm gap-4"
+    class="search-form"
   >
     <div
-      class="flex gap-10"
+      class="fields-container"
     >
       <fieldset
-        class="flex gap-2 items-center"
+        class="fieldset"
       >
         <label
-          class="font-light"
+          class="label"
           for="category"
         >
           Category:
         </label>
         <select
           aria-required="true"
-          class="border p-2 border-gray-400 rounded-sm text-sm focus:border-blue-500 focus:ring-blue-500"
+          class="input"
           data-testid="category-select"
           id="category"
           name="category"
@@ -40,34 +40,32 @@ exports[`Search when component renders should match snapshot 1`] = `
             class="bg-white"
             value="1"
           >
-            color
+            Color
           </option>
           <option
             class="bg-white"
             value="2"
           >
-            weight (oz)
+            Weight (oz)
           </option>
           <option
             class="bg-white"
             value="3"
           >
-            category
+            Category
           </option>
           <option
             class="bg-white"
             value="4"
           >
-            wireless
+            Wireless
           </option>
         </select>
       </fieldset>
     </div>
-    <div
-      class="flex"
-    >
+    <div>
       <button
-        class="bg-blue-700 hover:bg-blue-900 text-white text-sm py-2 px-4 rounded"
+        class="clear-button"
         type="button"
       >
         Clear
