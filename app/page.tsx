@@ -6,7 +6,6 @@ import Table from "./components/table";
 import Search from "./components/search";
 
 import { filterProducts } from "./filterProducts/filterProducts";
-
 import type { Products, Operator, Property, Filters } from "./types/types";
 
 const App = () => {

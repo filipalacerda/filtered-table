@@ -40,25 +40,25 @@ exports[`Search when component renders should match snapshot 1`] = `
             class="bg-white"
             value="1"
           >
-            color
+            Color
           </option>
           <option
             class="bg-white"
             value="2"
           >
-            weight (oz)
+            Weight (oz)
           </option>
           <option
             class="bg-white"
             value="3"
           >
-            category
+            Category
           </option>
           <option
             class="bg-white"
             value="4"
           >
-            wireless
+            Wireless
           </option>
         </select>
       </fieldset>

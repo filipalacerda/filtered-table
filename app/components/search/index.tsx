@@ -1,10 +1,11 @@
 "use client";
 
 import { ChangeEvent, useMemo, useState } from "react";
-import type { Operator, Property, Filters } from "../../types/types";
+import type { Operator, Property, Filters } from "@/app/types/types";
 
 import DynamicInput from "./dynamicInput";
 import { filterOperators } from "./utils";
+import { capitalizeName } from "@/app/utils";
 
 import "./styles.css";
 
@@ -145,7 +146,7 @@ const Search = ({ categories, operators, onClear, onChange }: SearchProps) => {
                 value={category.id}
                 className="bg-white"
               >
-                {category.name}
+                {capitalizeName(category.name)}
               </option>
             ))}
           </select>

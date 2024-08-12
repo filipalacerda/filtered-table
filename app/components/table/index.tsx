@@ -1,4 +1,5 @@
 import type { Product, Property } from "../../types/types";
+import { capitalizeName } from "@/app/utils";
 
 import "./styles.css";
 
@@ -9,8 +10,11 @@ type TableProps = {
 
 /**
  * Creates a table component given the data strucutre of `products` object.
- * Each row has an array of cells
- * @param param0
+ * Each row has an array of cells.
+ *
+ * When no rows are provided, it renders a info message
+ * @param TableProps
+ * @returns React.Element
  */
 const Table = ({ headers, rows }: TableProps) => {
   return (
@@ -19,7 +23,7 @@ const Table = ({ headers, rows }: TableProps) => {
         <tr>
           {headers.map((header) => (
             <th key={header.id} scope="col" className="header-cell">
-              {header.name}
+              {capitalizeName(header.name)}
             </th>
           ))}
         </tr>
