@@ -49,7 +49,7 @@ describe(Search.name, () => {
     });
   });
 
-  describe("when the user select a category for the first time", () => {
+  describe("when the user select a category", () => {
     beforeEach(async () => {
       const input = screen.getByTestId("category-select");
 
@@ -108,16 +108,19 @@ describe(Search.name, () => {
   });
 
   describe("when the user types a value", () => {
-    it("should call onChange callback", async () => {
+    let operatorsField: HTMLElement;
+    beforeEach(async () => {
       const input = screen.getByTestId("category-select");
 
       await userEvent.click(input);
 
       await userEvent.selectOptions(input, "Product Name");
 
-      const operatorsField = screen.getByTestId("operator-select");
+      operatorsField = screen.getByTestId("operator-select");
       await userEvent.click(operatorsField);
+    });
 
+    it("should call onChange callback", async () => {
       await userEvent.selectOptions(operatorsField, "equals");
 
       const inputField = screen.getByTestId("text-field");
@@ -135,6 +138,22 @@ describe(Search.name, () => {
           id: "equals",
         },
         value: "value",
+      });
+    });
+
+    describe("when the operator is none", () => {
+      it("should not render the value input", async () => {
+        await userEvent.selectOptions(operatorsField, "none");
+
+        expect(screen.queryByTestId("text-field")).not.toBeInTheDocument();
+      });
+    });
+
+    describe("when the operator is any", () => {
+      it("should not render the value input", async () => {
+        await userEvent.selectOptions(operatorsField, "any");
+
+        expect(screen.queryByTestId("text-field")).not.toBeInTheDocument();
       });
     });
   });

@@ -113,6 +113,15 @@ const Search = ({ categories, operators, onClear, onChange }: SearchProps) => {
     onClear();
   };
 
+  // We only want to render the input when the property is defined
+  // and the operator is not none or any
+  const isDynamicInputVisible =
+    currentCategoryProperty &&
+    currentCategoryProperty.id !== -1 &&
+    currentOperator?.id !== "none" &&
+    currentOperator?.id !== "any";
+
+  console.log(isDynamicInputVisible);
   return (
     <form className="search-form">
       <div className="fields-container">
@@ -166,7 +175,7 @@ const Search = ({ categories, operators, onClear, onChange }: SearchProps) => {
             </select>
           </fieldset>
         )}
-        {currentCategoryProperty && currentCategoryProperty.id !== -1 && (
+        {isDynamicInputVisible && (
           <fieldset className="fieldset">
             <label htmlFor="value" className="label">
               Value:
