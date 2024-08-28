@@ -83,4 +83,34 @@ describe(DynamicInput.name, () => {
       expect(onChange).toHaveBeenCalledWith("electronics");
     });
   });
+
+  describe('when type is enumerated and operator is "in"', () => {
+    beforeEach(() => {
+      render(
+        <DynamicInput
+          type="enumerated"
+          operator="in"
+          handleChange={onChange}
+          values={["tools", "electronics", "kitchenware"]}
+        />
+      );
+    });
+
+    it("should render a checkbox input", () => {
+      expect(screen.getByTestId("checkbox-field")).toBeInTheDocument();
+    });
+
+    it("should call on change when the user selects a checkbox", async () => {
+      const input1 = screen.getByTestId("tools-checkbox");
+      const input2 = screen.getByTestId("electronics-checkbox");
+
+      await userEvent.click(input1);
+
+      expect(onChange).toHaveBeenCalledWith("tools");
+
+      await userEvent.click(input2);
+
+      expect(onChange).toHaveBeenCalledWith("tools,electronics");
+    });
+  });
 });

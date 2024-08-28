@@ -6,7 +6,7 @@ type DynamicInputProps = {
   type: PropertyType;
   values?: string[];
   handleChange: (value: string) => void;
-  operator: string;
+  operator?: string;
 };
 
 /**
@@ -46,24 +46,28 @@ const DynamicInput = ({
     handleChange(newValue);
   };
 
+  const isTextInput = type === "string" || type === "number";
+  const isCheckbox = type === "enumerated" && operator === "in";
+  const isSelect = type === "enumerated" && operator !== "in";
+
   return (
     <div>
-      {type === "string" ||
-        (type === "number" && (
-          <input
-            data-testid="text-field"
-            type="text"
-            onChange={onChange}
-            className="input"
-          />
-        ))}
+      {isTextInput && (
+        <input
+          data-testid="text-field"
+          type="text"
+          onChange={onChange}
+          className="input"
+        />
+      )}
 
-      {type === "enumerated" && operator === "in" && (
-        <div className="checkboxes">
+      {isCheckbox && (
+        <div className="checkboxes" data-testid="checkbox-field">
           {values?.map((value) => (
             <div key={value}>
               <label htmlFor={`${value}-checkbox`}>{value}</label>
               <input
+                data-testid={`${value}-checkbox`}
                 name={`${value}-checkbox`}
                 id={`${value}-checkbox`}
                 type="checkbox"
@@ -75,7 +79,7 @@ const DynamicInput = ({
         </div>
       )}
 
-      {type === "enumerated" && operator !== "in" && (
+      {isSelect && (
         <select
           data-testid="select-field"
           onChange={onChange}

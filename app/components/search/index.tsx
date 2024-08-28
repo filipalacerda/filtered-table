@@ -93,7 +93,6 @@ const Search = ({ categories, operators, onClear, onChange }: SearchProps) => {
    * @param e: ChangeEvent
    */
   const handleValueChange = (value: string) => {
-    console.log(value);
     setCurrentValue(value);
 
     onChange({
