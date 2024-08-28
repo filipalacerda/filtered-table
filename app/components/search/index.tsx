@@ -93,6 +93,7 @@ const Search = ({ categories, operators, onClear, onChange }: SearchProps) => {
    * @param e: ChangeEvent
    */
   const handleValueChange = (value: string) => {
+    console.log(value);
     setCurrentValue(value);
 
     onChange({
@@ -182,6 +183,7 @@ const Search = ({ categories, operators, onClear, onChange }: SearchProps) => {
             </label>
             <DynamicInput
               data-testid="value-input"
+              operator={currentOperator?.id}
               type={currentCategoryProperty.type}
               values={currentCategoryProperty.values}
               handleChange={handleValueChange}
