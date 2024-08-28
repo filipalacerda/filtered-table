@@ -2,10 +2,12 @@
 
 exports[`DynamicInput when component renders should match snapshot 1`] = `
 <div>
-  <input
-    class="input"
-    data-testid="text-field"
-    type="text"
-  />
+  <div>
+    <input
+      class="input"
+      data-testid="text-field"
+      type="text"
+    />
+  </div>
 </div>
 `;

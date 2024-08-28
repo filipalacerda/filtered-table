@@ -55,3 +55,9 @@
     background-color: #1e3a8a;
   }
 }
+
+.checkboxes {
+  display: flex;
+  gap: 10px;
+  font-weight: 300;
+}

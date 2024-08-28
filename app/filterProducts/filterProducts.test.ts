@@ -839,6 +839,45 @@ describe("FilterProducts", () => {
       expect(result).toEqual(products);
     });
 
+    it("should not duplicate the results when the input has the same value twice", () => {
+      const result = inFilter(products, {
+        property: {
+          id: 0,
+          name: "Product Name",
+          type: "string",
+        },
+        operator: {
+          text: "Is any of",
+          id: "in",
+        },
+        value: "cup, cup",
+      });
+
+      expect(result).toEqual([
+        {
+          id: 3,
+          property_values: [
+            {
+              property_id: 0,
+              value: "Cup",
+            },
+            {
+              property_id: 1,
+              value: "white",
+            },
+            {
+              property_id: 2,
+              value: 3,
+            },
+            {
+              property_id: 3,
+              value: "kitchenware",
+            },
+          ],
+        },
+      ]);
+    });
+
     it("should return the products with an exact match of each of the values when values are string", () => {
       const result = inFilter(products, {
         property: {
@@ -944,31 +983,6 @@ describe("FilterProducts", () => {
           ],
         },
         {
-          id: 2,
-          property_values: [
-            {
-              property_id: 0,
-              value: "Keyboard",
-            },
-            {
-              property_id: 1,
-              value: "grey",
-            },
-            {
-              property_id: 2,
-              value: 5,
-            },
-            {
-              property_id: 3,
-              value: "electronics",
-            },
-            {
-              property_id: 4,
-              value: "false",
-            },
-          ],
-        },
-        {
           id: 1,
           property_values: [
             {
@@ -993,7 +1007,31 @@ describe("FilterProducts", () => {
             },
           ],
         },
-
+        {
+          id: 2,
+          property_values: [
+            {
+              property_id: 0,
+              value: "Keyboard",
+            },
+            {
+              property_id: 1,
+              value: "grey",
+            },
+            {
+              property_id: 2,
+              value: 5,
+            },
+            {
+              property_id: 3,
+              value: "electronics",
+            },
+            {
+              property_id: 4,
+              value: "false",
+            },
+          ],
+        },
         {
           id: 3,
           property_values: [
