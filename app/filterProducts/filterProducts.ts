@@ -1,4 +1,4 @@
-import { Filters, Products } from "../types/types";
+import { Filters, Product, Products } from "../types/types";
 
 /**
  * The value the user inputs could be all in uppercase.
@@ -199,39 +199,42 @@ const inFilter = (products: Products, filters: Filters) => {
   const filterValues = filters.value ? filters.value?.split(",") : [];
 
   let i: number;
-  const result: Products = [];
 
   // If the input has no value, returns the products
   if (!filterValues.length) {
     return products;
   }
 
-  for (i = 0; i <= filterValues?.length; i++) {
-    const filterValue = filterValues[i];
+  return products.reduce((acc, product) => {
+    product.property_values.forEach((value) => {
+      if (value.property_id === propertyId) {
+        for (i = 0; i <= filterValues?.length; i++) {
+          const filterValue = filterValues[i];
 
-    products.forEach((product) => {
-      product.property_values.forEach((value) => {
-        if (value.property_id === propertyId) {
           if (propertyType === "string" || propertyType === "enumerated") {
             if (
               normalizeValueToString(value.value) ===
               normalizeValueToString(filterValue)
             ) {
-              result.push(product);
+              if (!acc.some((e) => e.id === product.id)) {
+                acc.push(product);
+              }
             }
           } else if (propertyType === "number") {
             if (
               normalizeValueToNumber(value.value) ===
               normalizeValueToNumber(filterValue)
             ) {
-              result.push(product);
+              if (!acc.some((e) => e.id === product.id)) {
+                acc.push(product);
+              }
             }
           }
         }
-      });
+      }
     });
-  }
-  return result;
+    return acc;
+  }, [] as Products);
 };
 
 /**

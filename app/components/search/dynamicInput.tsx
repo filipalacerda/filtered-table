@@ -14,6 +14,7 @@ type DynamicInputProps = {
  * If the type is a string, it returns a text input
  * If the type is a number, it returns a number input
  * If the type is enumerated, it returns a select input
+ * If the type is enumerated and the operator is in, it returns checkboxes
  *
  * If the type does not match any of the above, this component will return null
  *
